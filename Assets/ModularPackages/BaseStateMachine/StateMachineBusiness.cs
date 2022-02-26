@@ -8,7 +8,7 @@ public class StateMachineBusiness<T> : MonoBehaviour
 {
     public StateMachine<T> stateMachine { get; protected set; }
 
-    private Dictionary<string, T> stateDictionary;
+    [NonSerialized] public Dictionary<string, T> stateDictionary;
 
     public virtual void InitializeStates() 
     {

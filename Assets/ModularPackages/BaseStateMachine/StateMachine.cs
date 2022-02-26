@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StateMachine<T> where T : State
 {
@@ -22,13 +23,9 @@ public class StateMachine<T> where T : State
         currentState.Enter();
     }
 
-    public void TickCurrentState()
-    {
-        NewState(currentState?.Tick() as T);
-    }
+    public void TickCurrentState() => NewState(currentState?.Tick() as T);
 
-    public void TickCurrentStateFixed()
-    {
-        NewState(currentState?.FixedTick() as T);
-    }
+    public void TickCurrentStateFixed() => NewState(currentState?.FixedTick() as T);
+    
+    public void FeedInput(StateInput _input) => currentState?.ProcessInput(_input);
 }
