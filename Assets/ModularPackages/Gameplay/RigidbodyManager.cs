@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCastManager))]
-public class GameplayManager : MonoBehaviour
+public class RigidbodyManager : MonoBehaviour
 {
     public GameplayVariablesObject variables;
     private Rigidbody rb;
