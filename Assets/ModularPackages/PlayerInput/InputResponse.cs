@@ -8,5 +8,5 @@ using System;
 public class InputResponse
 {
     public string name;
-    public InputAction relatedAction;   
+    public InputAction action;   
 }

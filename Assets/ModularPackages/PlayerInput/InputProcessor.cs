@@ -11,7 +11,7 @@ public class InputProcessor : MonoBehaviour
     void OnEnable()
     {
         foreach (InputResponse _response in inputActions)
-            _response.relatedAction.Enable();
+            _response.action.Enable();
     }
 
     public InputResponse GetAction(string _name)
@@ -26,7 +26,7 @@ public class InputProcessor : MonoBehaviour
     void OnDisable()
     {
         foreach (InputResponse _response in inputActions)
-            _response.relatedAction.Disable();
+            _response.action.Disable();
     }
 
 }

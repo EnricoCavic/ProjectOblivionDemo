@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayManager 
+[RequireComponent(typeof(Rigidbody), typeof(BoxCastManager))]
+public class GameplayManager : MonoBehaviour
 {
     public GameplayVariablesObject variables;
-    public Rigidbody rb;
-    public Transform myTransform;
+    private Rigidbody rb;
     private BoxCastManager castManager;
     private Vector3 GRAVITY;
 
 
-    public GameplayManager(Transform _transform, Rigidbody _rb, BoxCastManager _bm, GameplayVariablesObject _variables)
+    void Start()
     {
-        myTransform = _transform;
-        rb = _rb;
-        castManager = _bm;
-        variables = _variables;
         GRAVITY = Physics.gravity;
     }
 
+    public void UpdateGravity(Vector3 _newGravity)
+    {
+        GRAVITY = _newGravity;
+    }
 
     public void Jump()
     {
@@ -28,7 +28,7 @@ public class GameplayManager
 
     public void Move(float _moveAxis)
     {
-        rb.AddForce(_moveAxis * variables.movementSpeed, 0, 0, ForceMode.Force);     
+        rb.AddForce(_moveAxis * variables.acceleration, 0, 0, ForceMode.Force);     
     }
     
     public void ApplyGravityMultiplier(float _gravityMultiplier)
@@ -41,11 +41,14 @@ public class GameplayManager
 
     public bool CanMoveForward() => !castManager.CheckCast("RightWallCheck");
 
-    public bool IsFalling() => rb.velocity.y < 0.5f;
+    public bool IsFalling() => rb.velocity.y < 0f;
 
-    public bool IsMoving() => Mathf.Abs(rb.velocity.x) > 0.1f;
+    public bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
 
-    public void SetDragToDefault() => rb.drag = variables.defaultDrag;
+    public bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
+
+    public void SetDrag() => rb.drag = variables.defaultDrag;
+    public void SetDrag(float _newDrag) => rb.drag = _newDrag;
 
 
 }
