@@ -12,13 +12,14 @@ public class RunningCharacterState : CharacterState
     public override void Enter()
     {
         base.Enter();
-
+        business.rbManager.SetDrag();
     }
 
     public override State FixedTick()
     {
-        //business.rbManager.Move();
+        business.rbManager.Move();
         return this;
     }
+
 
 }

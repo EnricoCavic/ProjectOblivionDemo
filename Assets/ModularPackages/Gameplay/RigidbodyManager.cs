@@ -10,45 +10,53 @@ public class RigidbodyManager : MonoBehaviour
     private BoxCastManager castManager;
     private Vector3 GRAVITY;
 
+    private void Awake() 
+    {
+        rb = GetComponent<Rigidbody>();
+        castManager = GetComponent<BoxCastManager>();    
+    }
 
     void Start()
     {
         GRAVITY = Physics.gravity;
     }
 
-    public void UpdateGravity(Vector3 _newGravity)
+    public virtual void UpdateGravity(Vector3 _newGravity)
     {
         GRAVITY = _newGravity;
     }
 
-    public void Jump()
+    public virtual void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, variables.jumpForce, rb.velocity.z);        
     }
 
-    public void Move(float _moveAxis)
+    public virtual void Move(Vector3 _moveAxis)
     {
-        rb.AddForce(_moveAxis * variables.acceleration, 0, 0, ForceMode.Force);     
+        rb.AddForce(_moveAxis * variables.acceleration, ForceMode.Force);     
+    }
+
+    public virtual void Move()
+    {
+        rb.AddForce(transform.forward * variables.acceleration, ForceMode.Force);     
     }
     
-    public void ApplyGravityMultiplier(float _gravityMultiplier)
+    public virtual void ApplyGravityMultiplier(float _gravityMultiplier)
     {
         Vector3 resultVector = GRAVITY * _gravityMultiplier - GRAVITY;
         rb.AddForce(resultVector, ForceMode.Acceleration);
     }
     
-    public bool IsGrounded() => castManager.CheckCast("GroundCheck");
+    public virtual bool IsGrounded() => castManager.CheckCast("GroundCheck");
 
-    public bool CanMoveForward() => !castManager.CheckCast("RightWallCheck");
+    public virtual bool IsFalling() => rb.velocity.y < 0f;
 
-    public bool IsFalling() => rb.velocity.y < 0f;
+    public virtual bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
 
-    public bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
+    public virtual bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
 
-    public bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
-
-    public void SetDrag() => rb.drag = variables.defaultDrag;
-    public void SetDrag(float _newDrag) => rb.drag = _newDrag;
+    public virtual void SetDrag() => rb.drag = variables.defaultDrag;
+    public virtual void SetDrag(float _newDrag) => rb.drag = _newDrag;
 
 
 }

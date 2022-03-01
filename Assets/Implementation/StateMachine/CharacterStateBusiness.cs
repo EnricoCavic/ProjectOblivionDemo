@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 {
     public InputProcessor inputProcessor;
-    public RigidbodyManager rbManager;
+    public ProjectOblivionRBM rbManager;
 
     private void Awake() 
     {
