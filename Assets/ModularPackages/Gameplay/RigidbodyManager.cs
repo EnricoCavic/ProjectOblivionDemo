@@ -6,9 +6,9 @@ using UnityEngine;
 public class RigidbodyManager : MonoBehaviour
 {
     public GameplayVariablesObject variables;
-    private Rigidbody rb;
-    private BoxCastManager castManager;
-    private Vector3 GRAVITY;
+    protected Rigidbody rb;
+    protected BoxCastManager castManager;
+    protected Vector3 GRAVITY;
 
     private void Awake() 
     {

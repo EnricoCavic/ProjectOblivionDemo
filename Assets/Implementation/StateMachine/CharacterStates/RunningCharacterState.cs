@@ -15,6 +15,12 @@ public class RunningCharacterState : CharacterState
         business.rbManager.SetDrag();
     }
 
+    public override State Tick()
+    {
+        business.rbManager.CheckForTurn();
+        return this;
+    }
+
     public override State FixedTick()
     {
         business.rbManager.Move();

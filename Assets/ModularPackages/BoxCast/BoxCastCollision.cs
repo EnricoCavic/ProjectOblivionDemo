@@ -13,19 +13,19 @@ public class BoxCastCollision
     public Vector3 scaleModifier;
     public LayerMask collisionLayer;
     public bool toggleDraw;
-    
-    private const float OFFSET = 0.05f;
-    private Vector3 positionMultiplicator => -direction * OFFSET;
+
+    private const float OFFSET = 0.1f;
+    private Vector3 positionMultiplicator => -origin.TransformDirection(direction) * OFFSET;
     public Vector3 finalPosition => origin.position + positionMultiplicator;
     public Vector3 finalScale => origin.localScale + scaleModifier;
-    public Vector3 finalDirection => direction * distanceToOrigin;
+    public Vector3 finalDirection => origin.TransformDirection(direction) * distanceToOrigin;
 
 
     public BoxCastCollision() {}
 
     public bool CheckOverlap()
     {
-        bool boxCast = Physics.BoxCast(finalPosition, finalScale/2 , direction, origin.rotation, distanceToOrigin, collisionLayer);
+        bool boxCast = Physics.BoxCast(finalPosition, finalScale/2 , finalDirection, origin.rotation, distanceToOrigin, collisionLayer);
 
         return boxCast;
     }

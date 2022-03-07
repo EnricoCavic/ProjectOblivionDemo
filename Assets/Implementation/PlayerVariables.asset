@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerVariables
   m_EditorClassIdentifier: 
   maxMovementSpeed: 40
-  acceleration: 3
-  defaultDrag: 6
+  acceleration: 15
+  defaultDrag: 5
   jumpForce: 15
   coyoteTime: 0.2
   jumpingGravityMultiplier: 0.5
