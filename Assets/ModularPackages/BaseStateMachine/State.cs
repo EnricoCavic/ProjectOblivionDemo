@@ -5,7 +5,7 @@ using System;
 
 public abstract class State
 {
-    public Action onInputProcessed;
+    public Action<Parameters> onInputProcessed;
     public Action onEnter;
     public Action onExit;
     public virtual void Enter() => onEnter?.Invoke(); 
@@ -16,7 +16,7 @@ public abstract class State
 
     public virtual void Exit() => onExit?.Invoke();
 
-    public virtual void ProcessInput(StateInput _input) { return; }
+    public virtual void ProcessInput(Parameters _input) { return; }
 }
 
 

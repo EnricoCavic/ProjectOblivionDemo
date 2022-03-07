@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectOblivionRBM : RigidbodyManager
 {
+
     public bool HasWallOnFront() => castManager.CheckCast("FrontCheck");
 
     public void TurnArround() => transform.rotation = Quaternion.LookRotation(transform.forward * -1f);
@@ -12,6 +13,19 @@ public class ProjectOblivionRBM : RigidbodyManager
     {
         if(HasWallOnFront())
             TurnArround();
+    }
+
+    public void ApplyInput(Parameters _param)
+    {
+        switch(_param.id)  
+        {
+            case "Jump":
+                Jump(_param);
+                break;
+
+            default:
+                break;
+        }
     }
 
 }

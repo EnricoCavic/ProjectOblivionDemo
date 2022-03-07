@@ -26,7 +26,7 @@ public class RigidbodyManager : MonoBehaviour
         GRAVITY = _newGravity;
     }
 
-    public virtual void Jump()
+    public virtual void Jump(Parameters _param)
     {
         rb.velocity = new Vector3(rb.velocity.x, variables.jumpForce, rb.velocity.z);        
     }

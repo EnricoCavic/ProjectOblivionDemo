@@ -27,5 +27,27 @@ public class RunningCharacterState : CharacterState
         return this;
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+    }
 
+    public override void ProcessInput(Parameters _input)
+    {
+        switch(_input.id)
+        {
+            case "MainInput":
+                if(_input.boolParam)
+                {
+                    Parameters param = new Parameters();
+                    param.id = "Jump";
+                    onInputProcessed?.Invoke(param);
+                }
+                    
+                break;
+
+            default:
+                break;
+        }
+    }
 }

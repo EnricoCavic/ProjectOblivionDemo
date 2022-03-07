@@ -637,12 +637,20 @@ MonoBehaviour:
   - name: MainInput
     action:
       m_Name: Action
-      m_Type: 0
-      m_ExpectedControlType: 
+      m_Type: 1
+      m_ExpectedControlType: Button
       m_Id: 89f628f4-fe56-43fb-84f7-7706dc1bb569
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 93b62d39-a14c-4a95-958c-8ef5761328bc
+        m_Path: <Keyboard>/anyKey
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
 --- !u!114 &1445759293
 MonoBehaviour:
   m_ObjectHideFlags: 0
