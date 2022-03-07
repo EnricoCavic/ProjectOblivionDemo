@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunningCharacterState : CharacterState
+public class JumpingCharacterState : CharacterState
 {
-    public RunningCharacterState(CharacterStateBusiness _business)
+    public JumpingCharacterState(CharacterStateBusiness _business)
     {
         Init(_business);
     }
@@ -17,6 +17,9 @@ public class RunningCharacterState : CharacterState
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
+        if(business.rbManager.IsGrounded() && business.rbManager.IsFalling())
+            return business.GetState("Running");
+
         return this;
     }
 
@@ -36,14 +39,6 @@ public class RunningCharacterState : CharacterState
         switch(_input.id)
         {
             case "MainInput":
-                if(_input.boolParam)
-                {
-                    Parameters param = new Parameters();
-                    param.id = "Jump";
-                    onInputProcessed?.Invoke(param);
-                    business.stateMachine.NewState(business.GetState("Jumping"));
-                }
-                    
                 break;
 
             default:

@@ -27,6 +27,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     {
         base.InitializeStates();
         AddState("Running", new RunningCharacterState(this));
+        AddState("Jumping", new JumpingCharacterState(this));
         stateMachine = new StateMachine<CharacterState>(GetState("Running"));
     }
 
