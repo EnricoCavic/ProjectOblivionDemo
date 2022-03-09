@@ -39,8 +39,8 @@ public class BoxCastCollision
 
         Vector3 center = finalPosition + finalDirection;
         Vector3 maxPoint = center + Vector3.Scale(finalDirection, finalScale/2);
-        Vector3 pointR = maxPoint + Vector3.Scale( Vector3.Cross(finalDirection, origin.up), finalScale/2);
-
+        Vector3 pointR = maxPoint + Vector3.Scale(Vector3.Cross(finalDirection, origin.up), finalScale/2);
+        Vector3 rightUpV = pointR + Vector3.Scale(origin.up, finalScale/2);
         /*
         Vector3 point1 = finalPosition + finalDirection + finalScale/2;
         Vector3 point2 = finalPosition + finalDirection - finalScale/2;
@@ -51,6 +51,7 @@ public class BoxCastCollision
         Gizmos.DrawLine(origin.position, center);
         Gizmos.DrawLine(center, maxPoint);
         Gizmos.DrawLine(maxPoint, pointR);
+        Gizmos.DrawLine(pointR, rightUpV);
         //Gizmos.DrawLine(origin.position, point3);
         //Gizmos.DrawLine(origin.position, point4);
         
