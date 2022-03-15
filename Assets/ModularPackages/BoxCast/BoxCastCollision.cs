@@ -38,7 +38,9 @@ public class BoxCastCollision
         else
             Gizmos.color = Color.red;
         
-        Gizmos.matrix = origin.localToWorldMatrix; 
+
+        Gizmos.matrix = Matrix4x4.TRS(origin.position, origin.rotation, Gizmos.matrix.lossyScale); 
+
         Gizmos.DrawWireCube(localFinalPosition, finalScale);
 
     }

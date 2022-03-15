@@ -737,7 +737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445759290}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.97, y: 0.24, z: -0.87}
+  m_LocalPosition: {x: 2.59, y: 0.56, z: -0.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -760,7 +760,7 @@ MonoBehaviour:
     origin: {fileID: 1445759297}
     direction: {x: 0, y: -1, z: 0}
     distanceToOrigin: 1.07
-    scaleModifier: {x: 1, y: 0.17, z: 1}
+    scaleModifier: {x: 0.54, y: 0.17, z: 0.54}
     collisionLayer:
       serializedVersion: 2
       m_Bits: 64
@@ -769,7 +769,7 @@ MonoBehaviour:
     origin: {fileID: 1445759297}
     direction: {x: 0, y: 0, z: 1}
     distanceToOrigin: 0.57
-    scaleModifier: {x: 1, y: 1, z: 0.17}
+    scaleModifier: {x: 1, y: 1, z: 0.3}
     collisionLayer:
       serializedVersion: 2
       m_Bits: 64
