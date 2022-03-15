@@ -15,18 +15,20 @@ public class BoxCastCollision
     public bool toggleDraw;
 
     private const float OFFSET = 0.1f;
+    private Vector3 scaledDistance => distanceToOrigin * origin.localScale;
+    private float finalDistance => distanceToOrigin * Vector3.Scale(direction, origin.localScale).magnitude; 
 
-    private Vector3 localDirection => direction * distanceToOrigin;
-    private Vector3 localFinalPosition => localDirection -localDirection * OFFSET;
+    private Vector3 localDirection => direction * finalDistance;
+    private Vector3 localFinalPosition => localDirection +(-localDirection * OFFSET);
 
     public Vector3 finalScale => Vector3.Scale(scaleModifier, origin.localScale);
-    public Vector3 finalDirection => origin.TransformDirection(direction) * distanceToOrigin;
+    public Vector3 finalDirection => Vector3.Scale(origin.TransformDirection(direction), scaledDistance);
     private Vector3 positionMultiplicator => -finalDirection * OFFSET;
     public Vector3 finalPosition => origin.position + positionMultiplicator;
 
     public bool CheckOverlap()
     {
-        bool boxCast = Physics.BoxCast(finalPosition, finalScale/2 , finalDirection, origin.rotation, distanceToOrigin, collisionLayer);
+        bool boxCast = Physics.BoxCast(finalPosition, finalScale/2 , finalDirection, origin.rotation, finalDistance, collisionLayer);
 
         return boxCast;
     }
