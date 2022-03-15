@@ -15,12 +15,14 @@ public class BoxCastCollision
     public bool toggleDraw;
 
     private const float OFFSET = 0.1f;
+
+    private Vector3 localDirection => direction * distanceToOrigin;
+    private Vector3 localFinalPosition => localDirection -localDirection * OFFSET;
+
     public Vector3 finalScale => Vector3.Scale(scaleModifier, origin.localScale);
     public Vector3 finalDirection => origin.TransformDirection(direction) * distanceToOrigin;
     private Vector3 positionMultiplicator => -finalDirection * OFFSET;
     public Vector3 finalPosition => origin.position + positionMultiplicator;
-
-    public BoxCastCollision() {}
 
     public bool CheckOverlap()
     {
@@ -36,7 +38,8 @@ public class BoxCastCollision
         else
             Gizmos.color = Color.red;
         
-        Gizmos.DrawWireCube(finalPosition + finalDirection, finalScale);
+        Gizmos.matrix = origin.localToWorldMatrix; 
+        Gizmos.DrawWireCube(localFinalPosition, finalScale);
 
     }
 

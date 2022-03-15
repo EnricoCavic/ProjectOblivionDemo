@@ -736,13 +736,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445759290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.36, y: 0.263, z: -1.62}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 5.97, y: 0.24, z: -0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1445759298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,17 +759,17 @@ MonoBehaviour:
   - id: GroundCheck
     origin: {fileID: 1445759297}
     direction: {x: 0, y: -1, z: 0}
-    distanceToOrigin: 1.34
-    scaleModifier: {x: 1, y: 0.81, z: 1}
+    distanceToOrigin: 1.07
+    scaleModifier: {x: 1, y: 0.17, z: 1}
     collisionLayer:
       serializedVersion: 2
       m_Bits: 64
-    toggleDraw: 0
+    toggleDraw: 1
   - id: FrontCheck
     origin: {fileID: 1445759297}
     direction: {x: 0, y: 0, z: 1}
-    distanceToOrigin: 1
-    scaleModifier: {x: 1, y: 1, z: 1.19}
+    distanceToOrigin: 0.57
+    scaleModifier: {x: 1, y: 1, z: 0.17}
     collisionLayer:
       serializedVersion: 2
       m_Bits: 64
