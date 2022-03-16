@@ -68,11 +68,14 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         if(_isSubscribing)
         {
             GetState(CharStates.Running).onInputProcessed += rbManager.ApplyInput;
-            GetState(CharStates.Running).onEnter += rbManager.SetDrag;
+            GetState(CharStates.Running).onEnter += rbManager.OnStateEnter;
+            GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter;            
             return;
         }    
 
+        GetState(CharStates.Running).onEnter -= rbManager.OnStateEnter;
         GetState(CharStates.Running).onInputProcessed -= rbManager.ApplyInput;       
+        GetState(CharStates.Jumping).onEnter -= rbManager.OnStateEnter;    
     }
 
     public void MainInput(InputAction.CallbackContext _context)

@@ -17,9 +17,14 @@ public class CharacterState : State
 
     private void OnStateChange(bool _isEntering)
     {
+        //refactor to send state type as parameter
         Parameters param = new Parameters();
         param.id = _isEntering ? "OnStateEnter" : "OnStateExit";
         param.enumParam = enumId;
-        onEnter?.Invoke(param);
+
+        if(_isEntering)
+            onEnter?.Invoke(param);
+        else
+            onExit?.Invoke(param);
     }
 }

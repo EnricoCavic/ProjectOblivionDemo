@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ProjectOblivionRBM : RigidbodyManager
 {
@@ -13,13 +14,29 @@ public class ProjectOblivionRBM : RigidbodyManager
     {
         if(HasWallOnFront())
             TurnArround();
+
     }
 
-    public void SetDrag(Parameters _param)
+    public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
+    //public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
+
+    public void OnStateEnter(Parameters _param)
     {
-        
-    }
 
+        switch (_param.enumParam)
+        {
+            case CharStates.Running:
+                rb.drag = variables.defaultDrag;
+                break;
+
+            case CharStates.Jumping:
+                rb.drag = variables.airDrag;
+                break;
+
+            default:
+                break;
+        }
+    }
 
     public void ApplyInput(Parameters _param)
     {

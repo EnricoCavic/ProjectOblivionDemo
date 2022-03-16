@@ -22,6 +22,7 @@ public class JumpingCharacterState : CharacterState
     public override State FixedTick()
     {
         business.rbManager.Move();
+        business.rbManager.ApplyGravityMultiplier(this);
         return this;
     }
 
