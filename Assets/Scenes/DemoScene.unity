@@ -651,6 +651,22 @@ MonoBehaviour:
         m_Groups: 
         m_Action: Action
         m_Flags: 0
+      - m_Name: 
+        m_Id: 3540e340-f9fe-46b3-b2b0-eec7bf9e25e1
+        m_Path: '*/{PrimaryAction}'
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 4fbcdc69-2a4c-4159-8439-1824e35b3b25
+        m_Path: '*/{SecondaryAction}'
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
 --- !u!114 &1445759293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,7 +681,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputProcessor: {fileID: 1445759292}
   rbManager: {fileID: 1445759291}
-  inputTeste: 0
 --- !u!136 &1445759294
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -737,7 +752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445759290}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.52, y: 0.44, z: 0.28}
+  m_LocalPosition: {x: 1.11, y: 0.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -769,7 +784,7 @@ MonoBehaviour:
     origin: {fileID: 1445759297}
     direction: {x: 0, y: 0, z: 1}
     distanceToOrigin: 0.6
-    scaleModifier: {x: 1, y: 1.32, z: 0.3}
+    scaleModifier: {x: 1, y: 1.5, z: 0.3}
     collisionLayer:
       serializedVersion: 2
       m_Bits: 64

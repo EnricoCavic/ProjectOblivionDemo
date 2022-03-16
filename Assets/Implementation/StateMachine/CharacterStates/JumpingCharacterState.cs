@@ -6,19 +6,15 @@ public class JumpingCharacterState : CharacterState
 {
     public JumpingCharacterState(CharacterStateBusiness _business)
     {
+        enumId = CharStates.Jumping; 
         Init(_business);
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
     }
 
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
         if(business.rbManager.IsGrounded() && business.rbManager.IsFalling())
-            return business.GetState("Running");
+            return business.GetState(CharStates.Running);
 
         return this;
     }
@@ -27,11 +23,6 @@ public class JumpingCharacterState : CharacterState
     {
         business.rbManager.Move();
         return this;
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void ProcessInput(Parameters _input)

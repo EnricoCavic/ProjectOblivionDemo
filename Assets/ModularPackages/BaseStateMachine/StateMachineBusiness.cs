@@ -8,11 +8,11 @@ public class StateMachineBusiness<T> : MonoBehaviour
 {
     public StateMachine<T> stateMachine { get; protected set; }
 
-    [NonSerialized] public Dictionary<string, T> stateDictionary;
+    [NonSerialized] public Dictionary<Enum, T> stateDictionary;
 
     public virtual void InitializeStates() 
     {
-        stateDictionary = new Dictionary<string, T>();
+        stateDictionary = new Dictionary<Enum, T>();
     }
 
     protected void TickStateMachine() 
@@ -25,7 +25,7 @@ public class StateMachineBusiness<T> : MonoBehaviour
         stateMachine?.TickCurrentStateFixed();   
     }
 
-    public T AddState(string _stateTag, T _newState)
+    public T AddState(Enum _stateTag, T _newState)
     {
         if(stateDictionary.ContainsKey(_stateTag) || stateDictionary == null)
             return null;
@@ -34,7 +34,7 @@ public class StateMachineBusiness<T> : MonoBehaviour
         return stateDictionary[_stateTag];
     }
 
-    public T GetState(string _stateTag) => stateDictionary[_stateTag];
+    public T GetState(Enum _stateTag) => stateDictionary[_stateTag];
 
 
 

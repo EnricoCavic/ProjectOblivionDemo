@@ -3,32 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum CharStates { Running, Jumping }
+
 public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 {
     public InputProcessor inputProcessor;
     public ProjectOblivionRBM rbManager;
-    public bool inputTeste;
 
     private void Awake() 
     {
         InitializeStates();    
     }
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        InputAction mainInput = inputProcessor.GetAction("MainInput").action;
-        mainInput.started += MainInput;
-        mainInput.canceled += MainInput;
-
-        GetState("Running").onInputProcessed += rbManager.ApplyInput;
-    }
-
-    public override void InitializeStates()
-    {
-        base.InitializeStates();
-        AddState("Running", new RunningCharacterState(this));
-        AddState("Jumping", new JumpingCharacterState(this));
-        stateMachine = new StateMachine<CharacterState>(GetState("Running"));
+        SubUnsubInputs(true);
+        SubUnsubRbResponses(true);
     }
 
     private void Update() 
@@ -43,12 +33,46 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
     private void OnDisable() 
     {
+        SubUnsubInputs(false);
+        SubUnsubRbResponses(false);
+    }
+
+    public override void InitializeStates()
+    {
+        base.InitializeStates();
+
+        AddState(CharStates.Running, new RunningCharacterState(this));
+        AddState(CharStates.Jumping, new JumpingCharacterState(this));
+        
+        stateMachine = new StateMachine<CharacterState>(GetState(CharStates.Running));
+    }
+
+   private void SubUnsubInputs(bool _isSubscribing)
+    {
         InputAction mainInput = inputProcessor.GetAction("MainInput").action;
+
+        if(_isSubscribing)
+        {
+            mainInput.started += MainInput;
+            mainInput.canceled += MainInput;
+            return;
+        }
+
         mainInput.started -= MainInput;
         mainInput.canceled -= MainInput;
 
+    }
 
-        GetState("Running").onInputProcessed -= rbManager.ApplyInput;
+    private void SubUnsubRbResponses(bool _isSubscribing)
+    {
+        if(_isSubscribing)
+        {
+            GetState(CharStates.Running).onInputProcessed += rbManager.ApplyInput;
+            GetState(CharStates.Running).onEnter += rbManager.SetDrag;
+            return;
+        }    
+
+        GetState(CharStates.Running).onInputProcessed -= rbManager.ApplyInput;       
     }
 
     public void MainInput(InputAction.CallbackContext _context)
@@ -58,5 +82,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         _input.boolParam = _context.ReadValue<float>() > float.Epsilon;
         stateMachine.FeedInput(_input);
     }
+
+ 
     
 }

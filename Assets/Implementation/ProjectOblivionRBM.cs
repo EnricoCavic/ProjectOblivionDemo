@@ -15,6 +15,12 @@ public class ProjectOblivionRBM : RigidbodyManager
             TurnArround();
     }
 
+    public void SetDrag(Parameters _param)
+    {
+        
+    }
+
+
     public void ApplyInput(Parameters _param)
     {
         switch(_param.id)  
@@ -27,5 +33,7 @@ public class ProjectOblivionRBM : RigidbodyManager
                 break;
         }
     }
+
+
 
 }

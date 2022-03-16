@@ -6,12 +6,8 @@ public class RunningCharacterState : CharacterState
 {
     public RunningCharacterState(CharacterStateBusiness _business)
     {
+        enumId = CharStates.Running;
         Init(_business);
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
     }
 
     public override State Tick()
@@ -41,7 +37,7 @@ public class RunningCharacterState : CharacterState
                     Parameters param = new Parameters();
                     param.id = "Jump";
                     onInputProcessed?.Invoke(param);
-                    business.stateMachine.NewState(business.GetState("Jumping"));
+                    business.stateMachine.NewState(business.GetState(CharStates.Jumping));
                 }
                     
                 break;
