@@ -18,7 +18,7 @@ public class ProjectOblivionRBM : RigidbodyManager
     }
 
     public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
-    //public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
+    public void ApplyGravityMultiplier(AirborneCharacterState s) => ApplyGravityMultiplier(variables.airbourneGravityMultiplier);
 
     public void OnStateEnter(Parameters _param)
     {

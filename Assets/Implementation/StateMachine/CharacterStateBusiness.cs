@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum CharStates { Running, Jumping }
+public enum CharStates { Running, Jumping, Airborne }
 
 public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 {
@@ -24,6 +24,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     private void Update() 
     {
         stateMachine.TickCurrentState();    
+        Debug.Log(stateMachine.currentState.enumId);
     }
 
     private void FixedUpdate() 
@@ -43,6 +44,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
         AddState(CharStates.Running, new RunningCharacterState(this));
         AddState(CharStates.Jumping, new JumpingCharacterState(this));
+        AddState(CharStates.Airborne, new AirborneCharacterState(this));
         
         stateMachine = new StateMachine<CharacterState>(GetState(CharStates.Running));
     }
@@ -69,13 +71,15 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         {
             GetState(CharStates.Running).onInputProcessed += rbManager.ApplyInput;
             GetState(CharStates.Running).onEnter += rbManager.OnStateEnter;
-            GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter;            
+            GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter; 
+            GetState(CharStates.Airborne).onEnter += rbManager.OnStateEnter;            
             return;
         }    
 
         GetState(CharStates.Running).onEnter -= rbManager.OnStateEnter;
         GetState(CharStates.Running).onInputProcessed -= rbManager.ApplyInput;       
         GetState(CharStates.Jumping).onEnter -= rbManager.OnStateEnter;    
+        GetState(CharStates.Airborne).onEnter -= rbManager.OnStateEnter;    
     }
 
     public void MainInput(InputAction.CallbackContext _context)

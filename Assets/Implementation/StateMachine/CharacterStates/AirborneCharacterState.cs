@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpingCharacterState : CharacterState
+public class AirborneCharacterState : CharacterState
 {
-    public JumpingCharacterState(CharacterStateBusiness _business)
+    public AirborneCharacterState(CharacterStateBusiness _business)
     {
-        enumId = CharStates.Jumping; 
+        enumId = CharStates.Airborne; 
         Init(_business);
     }
 
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
-        if(business.rbManager.IsFalling())
-        {
-            if(business.rbManager.IsGrounded())
-                return business.GetState(CharStates.Running);
-            else
-                return business.GetState(CharStates.Airborne); 
-        }
-            
+        if(business.rbManager.IsGrounded() && !business.rbManager.IsMovingVertical())
+            return business.GetState(CharStates.Running);
 
         return this;
     }
@@ -37,8 +31,6 @@ public class JumpingCharacterState : CharacterState
         switch(_input.id)
         {
             case "MainInput":
-                if(!_input.boolParam)
-                    business.stateMachine.NewState(business.GetState(CharStates.Airborne));
                 break;
 
             default:
