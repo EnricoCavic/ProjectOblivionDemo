@@ -37,20 +37,4 @@ public class ProjectOblivionRBM : RigidbodyManager
                 break;
         }
     }
-
-    public void ApplyInput(Parameters _param)
-    {
-        switch(_param.id)  
-        {
-            case "Jump":
-                Jump(_param);
-                break;
-
-            default:
-                break;
-        }
-    }
-
-
-
 }

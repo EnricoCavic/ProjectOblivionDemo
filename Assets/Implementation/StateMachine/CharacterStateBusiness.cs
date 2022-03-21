@@ -24,7 +24,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     private void Update() 
     {
         stateMachine.TickCurrentState();    
-        Debug.Log(stateMachine.currentState.enumId);
+        //Debug.Log(stateMachine.currentState.enumId);
     }
 
     private void FixedUpdate() 
@@ -55,13 +55,16 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
         if(_isSubscribing)
         {
-            mainInput.started += MainInput;
-            mainInput.canceled += MainInput;
+            //mainInput.started += MainInput;
+            //mainInput.canceled += MainInput;
+            mainInput.started += BufferMainInput;
+            mainInput.canceled += BufferMainInput;
+            inputProcessor.buffer.onInputEnqueued += MainInput;
             return;
         }
 
-        mainInput.started -= MainInput;
-        mainInput.canceled -= MainInput;
+        //mainInput.started -= MainInput;
+        //mainInput.canceled -= MainInput;
 
     }
 
@@ -69,27 +72,59 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     {
         if(_isSubscribing)
         {
-            GetState(CharStates.Running).onInputProcessed += rbManager.ApplyInput;
+            GetState(CharStates.Running).onInputProcessed += ApplyInput;
             GetState(CharStates.Running).onEnter += rbManager.OnStateEnter;
+            GetState(CharStates.Running).onEnter += OnRunningStateEnter;
             GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter; 
             GetState(CharStates.Airborne).onEnter += rbManager.OnStateEnter;            
             return;
         }    
 
         GetState(CharStates.Running).onEnter -= rbManager.OnStateEnter;
-        GetState(CharStates.Running).onInputProcessed -= rbManager.ApplyInput;       
+        GetState(CharStates.Running).onInputProcessed -= ApplyInput;       
         GetState(CharStates.Jumping).onEnter -= rbManager.OnStateEnter;    
         GetState(CharStates.Airborne).onEnter -= rbManager.OnStateEnter;    
     }
 
-    public void MainInput(InputAction.CallbackContext _context)
+    public void BufferMainInput(InputAction.CallbackContext _context)
     {
-        StateInput _input = new StateInput();
-        _input.id = "MainInput";
-        _input.boolParam = _context.ReadValue<float>() > float.Epsilon;
-        stateMachine.FeedInput(_input);
+        InputObject iOjb = new InputObject(inputProcessor.GetAction("MainInput"), _context.ReadValue<float>() > float.Epsilon);
+        inputProcessor.buffer.EnqueueInput(iOjb);
     }
 
- 
-    
+    public void MainInput(InputObject _inputObj)
+    {
+        StateInput stateInput = new StateInput();
+        stateInput.id = "MainInput";
+        stateInput.boolParam = _inputObj.isPressing;
+        stateMachine.FeedInput(stateInput);
+    }
+
+    public void ApplyInput(Parameters _param)
+    {
+        switch(_param.id)  
+        {
+            case "Jump":
+                inputProcessor.buffer.GetNextInputInBuffer("MainInput", true);
+                rbManager.Jump(_param);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void OnRunningStateEnter(Parameters _param)
+    {   
+        if(inputProcessor.buffer.HasInputStored("MainInput", true))
+        {
+            Debug.Log("Possui input no buffer");
+            Parameters stateInput = new Parameters();
+            stateInput.id = "MainInput";
+            stateInput.boolParam = true;
+            stateMachine.FeedInput(stateInput);
+        }
+            
+    }
+
 }

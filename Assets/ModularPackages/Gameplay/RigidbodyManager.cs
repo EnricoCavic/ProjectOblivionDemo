@@ -28,7 +28,8 @@ public class RigidbodyManager : MonoBehaviour
 
     public virtual void Jump(Parameters _param)
     {
-        rb.velocity = new Vector3(rb.velocity.x, variables.jumpForce, rb.velocity.z);        
+        rb.velocity = new Vector3(rb.velocity.x, variables.jumpForce, rb.velocity.z); 
+        //rb.AddForce(transform.up * variables.jumpForce, ForceMode.Impulse);       
     }
 
     public virtual void Move(Vector3 _moveAxis)

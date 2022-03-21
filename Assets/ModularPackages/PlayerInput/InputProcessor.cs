@@ -8,10 +8,17 @@ public class InputProcessor : MonoBehaviour
 {
     public List<InputResponse> inputActions;
 
+    public InputBuffer buffer;
+
     void OnEnable()
     {
         foreach (InputResponse _response in inputActions)
             _response.action.Enable();
+    }
+
+    void FixedUpdate() 
+    {
+        buffer?.TickBuffer();    
     }
 
     public InputResponse GetAction(string _name)
