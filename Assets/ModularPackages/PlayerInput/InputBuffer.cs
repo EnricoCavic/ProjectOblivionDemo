@@ -7,25 +7,26 @@ using System;
 [Serializable]
 public class InputBuffer
 {
-    public Queue<InputObject> inputQueue = new Queue<InputObject>();
+    public List<InputObject> inputQueue = new List<InputObject>();
     public float inputTimeout;
     public Action<InputObject> onInputEnqueued;
 
-    public void EnqueueInput(InputObject _obj)
+    public void AddInput(InputObject _obj)
     {
-        inputQueue.Enqueue(_obj);
+        inputQueue.Insert(0, _obj);
         onInputEnqueued?.Invoke(_obj);
-        Debug.Log("Input enqueued: "+ _obj.response.name + " / " + _obj.isPressing);
+        Debug.Log("Input added: "+ _obj.response.name + " / " + _obj.isPressing);
     }
 
     public void TickBuffer()
     {
         if(inputQueue.Count <= 0)
             return;
-
-        if(Time.time - inputQueue.Peek().registeredTime > inputTimeout)
+        
+        InputObject _obj = inputQueue[LastPosition()];
+        if(Time.time - _obj.registeredTime > inputTimeout)
         {
-            InputObject _obj = inputQueue.Dequeue();     
+            inputQueue.Remove(_obj);
             Debug.Log("Input dequeued: "+ _obj.response.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed);
         }
         
@@ -35,37 +36,45 @@ public class InputBuffer
     {
         if(inputQueue.Count <= 0)
             return null;
-
-        foreach(InputObject _input in inputQueue)
+    
+        for(int i = LastPosition(); i >= 0; i-- )
         {
-            InputObject _inputObj = _input.wasProcessed ? null : _input;
+            InputObject _inputObj = !inputQueue[i].wasProcessed ? inputQueue[i] : null;
             if(_inputObj != null)
             {
                 if(_inputObj.response.name == _responseName && _isPressing == _inputObj.isPressing)
                 {
+                    Debug.Log("Input processed: "+ _inputObj.response.name + " / " + _inputObj.isPressing);
                     _inputObj.wasProcessed = true;
-                    Debug.Log("Input used: "+ _inputObj.response.name + " / " + _inputObj.isPressing);
                     return _inputObj;
                 }
-            }   
-        }
+            }
+        }   
 
         return null;
     }
 
     public bool HasInputStored(string _responseName, bool _isPressing)
     {
-        if(inputQueue.Count < 1)
+        if(inputQueue.Count <= 0)
             return false;
-
-        foreach(InputObject _input in inputQueue)
+    
+        for(int i = LastPosition(); i >= 0; i-- )
         {
-            InputObject _inputObj = _input.wasProcessed ? null : _input;
-            if(_inputObj != null)                               
-                return _inputObj.response.name == _responseName && _isPressing == _inputObj.isPressing; 
-        }
+            InputObject _inputObj = !inputQueue[i].wasProcessed ? inputQueue[i] : null;
+            if(_inputObj != null)
+            {
+                if(_inputObj.response.name == _responseName && _isPressing == _inputObj.isPressing)
+                {
+                    return true;
+                }
+            }
+        }   
 
-        return false;    
+        return false;           
+
     }
+
+    private int LastPosition() => inputQueue.Count - 1;
 
 }
