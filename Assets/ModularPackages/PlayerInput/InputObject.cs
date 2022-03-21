@@ -7,14 +7,14 @@ public class InputObject
 {
     public InputResponse response;
     public float registeredTime;
-    public bool isPressing;
     public bool wasProcessed;
+    public bool isPressing;
 
     public InputObject(InputResponse _response, bool _isPressing)
     {
         response = _response;
         isPressing = _isPressing;
-        registeredTime = Time.time; 
-        wasProcessed = false;
+        registeredTime = Time.time;
+        wasProcessed = false; 
     }
 }

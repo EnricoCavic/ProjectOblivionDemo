@@ -16,7 +16,7 @@ public class InputProcessor : MonoBehaviour
             _response.action.Enable();
     }
 
-    void Update() 
+    void FixedUpdate() 
     {
         buffer?.TickBuffer();    
     }
