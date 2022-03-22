@@ -38,7 +38,12 @@ public class JumpingCharacterState : CharacterState
         {
             case "MainInput":
                 if(!_input.boolParam)
+                {    
+                    Parameters param = new Parameters();
+                    param.id = "JumpReleased";
+                    onInputProcessed?.Invoke(param);
                     business.stateMachine.NewState(business.GetState(CharStates.Airborne));
+                }
                 break;
 
             default:

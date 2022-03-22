@@ -31,6 +31,9 @@ public class AirborneCharacterState : CharacterState
         switch(_input.id)
         {
             case "MainInput":
+                    Parameters param = new Parameters();
+                    param.id = "JumpReleased";
+                    onInputProcessed?.Invoke(param);
                 break;
 
             default:

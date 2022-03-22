@@ -7,15 +7,16 @@ using System;
 [Serializable]
 public class InputBuffer
 {
-    public Queue<InputObject> inputQueue = new Queue<InputObject>();
+    public List<InputObject> inputQueue = new List<InputObject>();
     public float inputTimeout;
     public Action<InputObject> onInputEnqueued;
 
     public void EnqueueInput(InputObject _obj)
     {
-        inputQueue.Enqueue(_obj);
-        onInputEnqueued?.Invoke(_obj);
+        inputQueue.Add(_obj);
         Debug.Log("Input enqueued: "+ _obj.response.name + " / " + _obj.isPressing);
+        onInputEnqueued?.Invoke(_obj);
+
     }
 
     public void TickBuffer()
@@ -23,9 +24,9 @@ public class InputBuffer
         if(inputQueue.Count <= 0)
             return;
 
-        if(Time.time - inputQueue.Peek().registeredTime > inputTimeout)
+        if(Time.time - PeekInput().registeredTime > inputTimeout)
         {
-            InputObject _obj = inputQueue.Dequeue();     
+            InputObject _obj = DequeueInput();     
             Debug.Log("Input dequeued: "+ _obj.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed);
         }
         
@@ -37,11 +38,20 @@ public class InputBuffer
             return null;
         
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
-        if(targetObj.CompareToObject(inputQueue.Peek()))
-        {                        
+        if(targetObj.CompareToObject(PeekInput()))
+        {
             Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
-            return inputQueue.Dequeue();
+            return DequeueInput();
         }
+
+
+        InputObject foundObj = GetNextByComparison(targetObj);
+        /*if(foundObj != null)
+        {
+            Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
+            foundObj.wasProcessed = true;
+            return foundObj;
+        }*/
             
         return null;
     }
@@ -52,8 +62,36 @@ public class InputBuffer
             return false;
 
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
+        if(targetObj.CompareToObject(PeekInput()))
+            return true;
 
-        return targetObj.CompareToObject(inputQueue.Peek()); 
+
+        /*InputObject foundObj = GetNextByComparison(targetObj);
+        if(foundObj != null)
+            return true;*/
+
+        return false; 
     }
+
+    private InputObject PeekInput() => inputQueue[0];
+    private InputObject DequeueInput()
+    {
+        InputObject returnValue = inputQueue[0];
+        inputQueue.RemoveAt(0);
+        return returnValue;
+    }
+
+    private InputObject GetNextByComparison(InputObject _objToCompare)
+    {
+        for(int i = 0; i < inputQueue.Count; i++ )
+        {
+            if(_objToCompare.CompareToObject(inputQueue[i]))
+            {
+                return inputQueue[i];
+            }
+        }
+        return null;
+    }
+
 
 }

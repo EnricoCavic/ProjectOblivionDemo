@@ -8,7 +8,6 @@ public class InputObject
     public InputResponse response;
     public string name;
     public float registeredTime;
-    
     public bool wasProcessed;
     public bool isPressing;
 

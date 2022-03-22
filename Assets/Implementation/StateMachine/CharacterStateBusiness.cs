@@ -73,6 +73,9 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         if(_isSubscribing)
         {
             GetState(CharStates.Running).onInputProcessed += ApplyInput;
+            GetState(CharStates.Jumping).onInputProcessed += ApplyInput;
+            GetState(CharStates.Airborne).onInputProcessed += ApplyInput;
+
             GetState(CharStates.Running).onEnter += rbManager.OnStateEnter;
             GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter; 
             GetState(CharStates.Airborne).onEnter += rbManager.OnStateEnter;   
@@ -111,6 +114,10 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
                 rbManager.Jump(_param);
                 break;
 
+                case "JumpReleased":
+                inputProcessor.buffer.GetNextInputInBuffer("MainInput", false);
+                break;
+
             default:
                 break;
         }
@@ -118,6 +125,9 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
     public void OnRunningStateEnter(Parameters _param)
     {   
+        if(_param.id != "OnStateEnter")
+            return;
+
         if(inputProcessor.buffer.HasInputStored("MainInput", true))
         {
             Debug.Log("Possui input no buffer");
@@ -127,7 +137,10 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     }
 
     public void OnJumpingStateEnter(Parameters _param)
-    {   
+    {
+        if(_param.id != "OnStateEnter")
+            return;
+
         if(inputProcessor.buffer.HasInputStored("MainInput", false))
         {
             Debug.Log("Possui input no buffer");
