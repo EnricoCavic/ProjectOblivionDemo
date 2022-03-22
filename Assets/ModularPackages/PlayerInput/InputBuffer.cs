@@ -35,19 +35,17 @@ public class InputBuffer
     {
         if(inputQueue.Count <= 0)
             return null;
-
+        
+        InputObject targetObj = new InputObject(_responseName, _isPressing, false);
         foreach(InputObject _input in inputQueue)
-        {
-            InputObject _inputObj = _input.wasProcessed ? null : _input;
-            if(_inputObj != null)
+        {            
+            if(_input.CompareToObject(targetObj))
             {
-                if(_inputObj.response.name == _responseName && _isPressing == _inputObj.isPressing)
-                {
-                    _inputObj.wasProcessed = true;
-                    Debug.Log("Input used: "+ _inputObj.response.name + " / " + _inputObj.isPressing);
-                    return _inputObj;
-                }
-            }   
+                _input.wasProcessed = true;
+                Debug.Log("Input used: "+ _input.response.name + " / " + _input.isPressing);
+                return _input;
+            }
+            
         }
 
         return null;
@@ -58,11 +56,14 @@ public class InputBuffer
         if(inputQueue.Count < 1)
             return false;
 
+        InputObject targetObj = new InputObject(_responseName, _isPressing, false);
+
         foreach(InputObject _input in inputQueue)
-        {
-            InputObject _inputObj = _input.wasProcessed ? null : _input;
-            if(_inputObj != null)                               
-                return _inputObj.response.name == _responseName && _isPressing == _inputObj.isPressing; 
+        {               
+            if(_input.CompareToObject(targetObj))      
+            {
+                return true;
+            }     
         }
 
         return false;    

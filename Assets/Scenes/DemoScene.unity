@@ -858,7 +858,7 @@ MonoBehaviour:
         m_Action: Action
         m_Flags: 0
   buffer:
-    inputTimeout: 0.5
+    inputTimeout: 1
 --- !u!114 &1445759293
 MonoBehaviour:
   m_ObjectHideFlags: 0

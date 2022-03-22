@@ -74,9 +74,11 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         {
             GetState(CharStates.Running).onInputProcessed += ApplyInput;
             GetState(CharStates.Running).onEnter += rbManager.OnStateEnter;
-            GetState(CharStates.Running).onEnter += OnRunningStateEnter;
             GetState(CharStates.Jumping).onEnter += rbManager.OnStateEnter; 
-            GetState(CharStates.Airborne).onEnter += rbManager.OnStateEnter;            
+            GetState(CharStates.Airborne).onEnter += rbManager.OnStateEnter;   
+
+            GetState(CharStates.Running).onEnter += OnRunningStateEnter;
+            GetState(CharStates.Jumping).onEnter += OnJumpingStateEnter;         
             return;
         }    
 
@@ -119,12 +121,27 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         if(inputProcessor.buffer.HasInputStored("MainInput", true))
         {
             Debug.Log("Possui input no buffer");
-            Parameters stateInput = new Parameters();
-            stateInput.id = "MainInput";
-            stateInput.boolParam = true;
-            stateMachine.FeedInput(stateInput);
+            stateMachine.FeedInput(GerenateParam("MainInput", true));
         }
             
+    }
+
+    public void OnJumpingStateEnter(Parameters _param)
+    {   
+        if(inputProcessor.buffer.HasInputStored("MainInput", false))
+        {
+            Debug.Log("Possui input no buffer");
+            stateMachine.FeedInput(GerenateParam("MainInput", false));
+        }
+            
+    }
+
+    private Parameters GerenateParam(string _id, bool _boolParam)
+    {
+            Parameters param = new Parameters();
+            param.id = _id;
+            param.boolParam = _boolParam;     
+            return param;
     }
 
 }
