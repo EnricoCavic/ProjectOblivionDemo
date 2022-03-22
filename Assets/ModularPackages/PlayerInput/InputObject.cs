@@ -8,6 +8,7 @@ public class InputObject
     public InputResponse response;
     public string name;
     public float registeredTime;
+    
     public bool wasProcessed;
     public bool isPressing;
 
@@ -30,8 +31,11 @@ public class InputObject
 
     public bool CompareToObject(InputObject _objToCompare)
     {
+        if(_objToCompare == null)
+            return false;
+
         return _objToCompare.name == name &&
-               _objToCompare.isPressing == isPressing && 
+               _objToCompare.isPressing == isPressing &&
                _objToCompare.wasProcessed == wasProcessed;
     }
 }

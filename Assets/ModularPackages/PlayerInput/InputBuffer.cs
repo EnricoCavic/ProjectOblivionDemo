@@ -26,7 +26,7 @@ public class InputBuffer
         if(Time.time - inputQueue.Peek().registeredTime > inputTimeout)
         {
             InputObject _obj = inputQueue.Dequeue();     
-            Debug.Log("Input dequeued: "+ _obj.response.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed);
+            Debug.Log("Input dequeued: "+ _obj.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed);
         }
         
     }
@@ -37,36 +37,23 @@ public class InputBuffer
             return null;
         
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
-        foreach(InputObject _input in inputQueue)
-        {            
-            if(_input.CompareToObject(targetObj))
-            {
-                _input.wasProcessed = true;
-                Debug.Log("Input used: "+ _input.response.name + " / " + _input.isPressing);
-                return _input;
-            }
-            
+        if(targetObj.CompareToObject(inputQueue.Peek()))
+        {                        
+            Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
+            return inputQueue.Dequeue();
         }
-
+            
         return null;
     }
 
     public bool HasInputStored(string _responseName, bool _isPressing)
     {
-        if(inputQueue.Count < 1)
+        if(inputQueue.Count <= 0)
             return false;
 
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
 
-        foreach(InputObject _input in inputQueue)
-        {               
-            if(_input.CompareToObject(targetObj))      
-            {
-                return true;
-            }     
-        }
-
-        return false;    
+        return targetObj.CompareToObject(inputQueue.Peek()); 
     }
 
 }
