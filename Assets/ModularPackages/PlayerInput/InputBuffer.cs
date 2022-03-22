@@ -45,8 +45,8 @@ public class InputBuffer
         }
 
 
-        InputObject foundObj = GetNextByComparison(targetObj);
-        /*if(foundObj != null)
+        /*InputObject foundObj = GetNextByComparison(targetObj);
+        if(foundObj != null)
         {
             Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
             foundObj.wasProcessed = true;

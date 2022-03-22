@@ -21,6 +21,8 @@ public class JumpingCharacterState : CharacterState
                 return business.GetState(CharStates.Airborne); 
         }
             
+        if(!business.rbManager.IsMovingVertical() && business.rbManager.IsGrounded())
+                return business.GetState(CharStates.Running);
 
         return this;
     }
