@@ -11,6 +11,13 @@ public class InputObject
     public bool wasProcessed;
     public bool isPressing;
 
+    public InputObject(InputResponse _response)
+    {
+        response = _response;
+        name = response.name;
+        wasProcessed = false; 
+    }
+
     public InputObject(InputResponse _response, bool _isPressing)
     {
         response = _response;

@@ -9,4 +9,5 @@ public class InputResponse
 {
     public string name;
     public InputAction action;   
+
 }

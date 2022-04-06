@@ -17,6 +17,6 @@ MonoBehaviour:
   defaultDrag: 5
   jumpForce: 12
   coyoteTime: 0.2
-  jumpingGravityMultiplier: 1
+  jumpingGravityMultiplier: 0.5
   airDrag: 4
   airbourneGravityMultiplier: 6

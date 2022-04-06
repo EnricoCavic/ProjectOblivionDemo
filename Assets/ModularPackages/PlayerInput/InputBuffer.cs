@@ -38,20 +38,20 @@ public class InputBuffer
             return null;
         
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
-        if(targetObj.CompareToObject(PeekInput()))
+        /*if(targetObj.CompareToObject(PeekInput()))
         {
             Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
             return DequeueInput();
-        }
+        }*/
 
 
-        /*InputObject foundObj = GetNextByComparison(targetObj);
+        InputObject foundObj = GetNextByComparison(targetObj);
         if(foundObj != null)
         {
             Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
             foundObj.wasProcessed = true;
             return foundObj;
-        }*/
+        }
             
         return null;
     }
@@ -73,8 +73,8 @@ public class InputBuffer
         return false; 
     }
 
-    private InputObject PeekInput() => inputQueue[0];
-    private InputObject DequeueInput()
+    public InputObject PeekInput() => inputQueue[0];
+    public InputObject DequeueInput()
     {
         InputObject returnValue = inputQueue[0];
         inputQueue.RemoveAt(0);

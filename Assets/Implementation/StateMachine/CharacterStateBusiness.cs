@@ -128,6 +128,10 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         if(_param.id != "OnStateEnter")
             return;
 
+        //remover input caso ele seja de keyUp
+        if(inputProcessor.buffer.HasInputStored("MainInput", false))
+            inputProcessor.buffer.DequeueInput();
+
         if(inputProcessor.buffer.HasInputStored("MainInput", true))
         {
             Debug.Log("Possui input no buffer");

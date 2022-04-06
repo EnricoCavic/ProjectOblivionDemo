@@ -6,17 +6,17 @@ using UnityEngine.InputSystem;
 public class InputImplementationExemple : MonoBehaviour
 {
     InputProcessor inputProcessor;
-    InputAction response;
+    InputAction actionToSubscribe;
 
     void Awake() => inputProcessor = GetComponent<InputProcessor>();
     
-    void Start() => response = inputProcessor.GetAction("MainInput").action;
+    void Start() => actionToSubscribe = inputProcessor.GetAction("MainInput").action;
 
 
     void OnEnable()
     {
-        response.started += InputStarted;
-        response.canceled += InputCanceled;
+        actionToSubscribe.started += InputStarted;
+        actionToSubscribe.canceled += InputCanceled;
     }
 
     public void InputStarted(InputAction.CallbackContext _context)
@@ -31,8 +31,8 @@ public class InputImplementationExemple : MonoBehaviour
 
     void OnDisable()
     {
-        response.started -= InputStarted;
-        response.canceled -= InputCanceled;
+        actionToSubscribe.started -= InputStarted;
+        actionToSubscribe.canceled -= InputCanceled;
     }
 
 }
