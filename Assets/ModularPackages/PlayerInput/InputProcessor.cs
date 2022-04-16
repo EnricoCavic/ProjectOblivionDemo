@@ -23,6 +23,7 @@ public class InputProcessor : MonoBehaviour
         {
             inputObjects.Add(new InputObject(_response));
             _response.action.started += RegisterToBuffer;
+            _response.action.canceled += RegisterToBuffer;
         }
     }
 
@@ -62,7 +63,7 @@ public class InputProcessor : MonoBehaviour
     {
         foreach (InputObject _obj in inputObjects)
             if(_obj.response.action == _action)
-                return _obj;
+                return new InputObject(_obj);
 
         return null;
     }

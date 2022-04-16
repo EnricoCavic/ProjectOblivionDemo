@@ -334,12 +334,12 @@ MonoBehaviour:
       m_Name: Action
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 5b5be862-ee65-4e76-ac50-158684a7c9cd
+      m_Id: 6a20a67c-bd92-4b2d-881b-e94bb8d1a4c4
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings:
       - m_Name: 
-        m_Id: e073001f-21a1-4d8b-b431-2b18f73e43ce
+        m_Id: 5d9414a5-46a4-4c10-8163-8d4c51f55f37
         m_Path: <Mouse>/leftButton
         m_Interactions: 
         m_Processors: 

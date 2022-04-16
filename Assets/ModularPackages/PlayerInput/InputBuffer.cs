@@ -26,8 +26,9 @@ public class InputBuffer
 
         if(Time.time - PeekInput().registeredTime > inputTimeout)
         {
-            InputObject _obj = DequeueInput();     
-            Debug.Log("Input dequeued: "+ _obj.name + " / " + _obj.isPressing + " / " + _obj.wasProcessed);
+            InputObject _obj = DequeueInput();   
+            string processedOut = _obj.wasProcessed ? "Processado" : "Não processado";  
+            Debug.Log("Input dequeued: "+ _obj.name + " / " + _obj.isPressing + " / " + processedOut + " / " + _obj.registeredTime);
         }
         
     }
@@ -38,16 +39,10 @@ public class InputBuffer
             return null;
         
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
-        /*if(targetObj.CompareToObject(PeekInput()))
-        {
-            Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
-            return DequeueInput();
-        }*/
-
-
         InputObject foundObj = GetNextByComparison(targetObj);
         if(foundObj != null)
         {
+
             Debug.Log("Input used: "+ targetObj.name + " / " + targetObj.isPressing);
             foundObj.wasProcessed = true;
             return foundObj;
@@ -64,11 +59,6 @@ public class InputBuffer
         InputObject targetObj = new InputObject(_responseName, _isPressing, false);
         if(targetObj.CompareToObject(PeekInput()))
             return true;
-
-
-        /*InputObject foundObj = GetNextByComparison(targetObj);
-        if(foundObj != null)
-            return true;*/
 
         return false; 
     }
