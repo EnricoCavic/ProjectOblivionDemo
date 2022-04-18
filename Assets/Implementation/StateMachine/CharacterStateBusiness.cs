@@ -57,8 +57,8 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         {
             //mainInput.started += MainInput;
             //mainInput.canceled += MainInput;
-            mainInput.started += BufferMainInput;
-            mainInput.canceled += BufferMainInput;
+            mainInput.started += inputProcessor.RegisterToBuffer;
+            mainInput.canceled += inputProcessor.RegisterToBuffer;
             inputProcessor.buffer.onInputEnqueued += MainInput;
             return;
         }
@@ -93,8 +93,8 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
     public void BufferMainInput(InputAction.CallbackContext _context)
     {
-        InputObject iOjb = new InputObject(inputProcessor.GetAction("MainInput"), _context.ReadValue<float>() > float.Epsilon);
-        inputProcessor.buffer.EnqueueInput(iOjb);
+        // InputObject iOjb = new InputObject(inputProcessor.GetAction("MainInput"), _context.ReadValue<float>() > float.Epsilon);
+        // inputProcessor.buffer.EnqueueInput(iOjb);
     }
 
     public void MainInput(InputObject _inputObj)

@@ -14,7 +14,7 @@ public class InputBuffer
     public void EnqueueInput(InputObject _obj)
     {
         inputQueue.Add(_obj);
-        Debug.Log("Input enqueued: "+ _obj.response.name + " / " + _obj.isPressing);
+        Debug.Log("Input enqueued: "+ _obj.name + " / " + _obj.isPressing);
         onInputEnqueued?.Invoke(_obj);
 
     }
