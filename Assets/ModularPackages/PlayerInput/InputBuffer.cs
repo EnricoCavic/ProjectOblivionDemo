@@ -7,14 +7,13 @@ using System;
 [Serializable]
 public class InputBuffer
 {
-    public List<InputObject> inputQueue = new List<InputObject>();
+    private List<InputObject> inputQueue = new List<InputObject>();
     public float inputTimeout;
     public Action<InputObject> onInputEnqueued;
 
     public void EnqueueInput(InputObject _obj)
     {
         inputQueue.Add(_obj);
-        Debug.Log("Input enqueued: "+ _obj.name + " / " + _obj.isPressing);
         onInputEnqueued?.Invoke(_obj);
 
     }
@@ -27,8 +26,6 @@ public class InputBuffer
         if(Time.time - PeekInput().registeredTime > inputTimeout)
         {
             InputObject _obj = DequeueInput();   
-            string processedOut = _obj.wasProcessed ? "Processado" : "Não processado";  
-            Debug.Log("Input dequeued: "+ _obj.name + " / " + _obj.isPressing + " / " + processedOut + " / " + _obj.registeredTime);
         }
         
     }

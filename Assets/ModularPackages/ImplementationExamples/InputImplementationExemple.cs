@@ -5,34 +5,20 @@ using UnityEngine.InputSystem;
 
 public class InputImplementationExemple : MonoBehaviour
 {
-    InputProcessor inputProcessor;
-    InputAction actionToSubscribe;
+    private InputProcessor inputProcessor;
+    private InputBuffer buffer;
 
-    void Awake() => inputProcessor = GetComponent<InputProcessor>();
+    private void Awake() => inputProcessor = GetComponent<InputProcessor>();
     
-    void Start() => actionToSubscribe = inputProcessor.GetAction("MainInput").action;
-
-
-    void OnEnable()
+    private void OnEnable() 
     {
-        actionToSubscribe.started += InputStarted;
-        actionToSubscribe.canceled += InputCanceled;
+        inputProcessor.buffer.onInputEnqueued += TryInput;
     }
 
-    public void InputStarted(InputAction.CallbackContext _context)
+    private void TryInput(InputObject _obj)
     {
-        Debug.Log("Main input started");
+        
     }
 
-    public void InputCanceled(InputAction.CallbackContext _context)
-    {
-        Debug.Log("Main input released");
-    }
-
-    void OnDisable()
-    {
-        actionToSubscribe.started -= InputStarted;
-        actionToSubscribe.canceled -= InputCanceled;
-    }
 
 }
