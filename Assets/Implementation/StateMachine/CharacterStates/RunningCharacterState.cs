@@ -10,6 +10,17 @@ public class RunningCharacterState : CharacterState
         Init(_business);
     }
 
+    public override void Enter()
+    {
+        if(business.inputProcessor.mainInputBuffer.x > 0f)
+        {
+            MainInputStarted();
+            return;
+        }
+
+        business.rbManager.OnStateEnter(this);
+    }
+
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
@@ -21,32 +32,15 @@ public class RunningCharacterState : CharacterState
 
     public override State FixedTick()
     {
-        business.rbManager.Move();
+        business.rbManager.Move(business.rbManager.variables.acceleration);
         return this;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
 
-    public override void ProcessInput(Parameters _input)
+    public override void MainInputStarted()
     {
-        switch(_input.id)
-        {
-            case "MainInput":
-                if(_input.boolParam)
-                {
-                    Parameters param = new Parameters();
-                    param.id = "Jump";
-                    onInputProcessed?.Invoke(param);
-                    business.stateMachine.NewState(business.GetState(CharStates.Jumping));
-                }
-                    
-                break;
-
-            default:
-                break;
-        }
+        business.inputProcessor.mainInputBuffer.x = 0f;
+        business.rbManager.Jump(business.rbManager.variables.jumpForce);
+        business.stateMachine.NewState(business.GetState(CharStates.Jumping));
     }
 }

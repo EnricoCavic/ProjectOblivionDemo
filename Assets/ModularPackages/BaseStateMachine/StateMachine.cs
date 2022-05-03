@@ -27,5 +27,4 @@ public class StateMachine<T> where T : State
 
     public void TickCurrentStateFixed() => NewState(currentState?.FixedTick() as T);
     
-    public void FeedInput(Parameters _input) => currentState?.ProcessInput(_input);
 }

@@ -12,10 +12,11 @@ public class GameplayVariablesObject : ScriptableObject
     public float defaultDrag = 6f;
 
 
-    [Header("Juumping")]
+    [Header("Jumping")]
     public float jumpForce = 15f;
     public float coyoteTime = 0.2f;
     public float jumpingGravityMultiplier = 0.5f;
+    public float minJumpTime = 0.05f;
 
 
     [Header("Airborne")]

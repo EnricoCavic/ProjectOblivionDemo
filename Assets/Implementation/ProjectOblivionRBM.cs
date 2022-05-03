@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ProjectOblivionRBM : RigidbodyManager
+public class ProjectOblivionRBM : Rigidbody2DManager
 {
 
-    public bool HasWallOnFront() => castManager.CheckCast("FrontCheck");
+    public bool HasWallOnFront() => true;
 
     public void TurnArround() => transform.rotation = Quaternion.LookRotation(transform.forward * -1f);
 
@@ -20,21 +20,13 @@ public class ProjectOblivionRBM : RigidbodyManager
     public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
     public void ApplyGravityMultiplier(AirborneCharacterState s) => ApplyGravityMultiplier(variables.airbourneGravityMultiplier);
 
-    public void OnStateEnter(Parameters _param)
+    public void OnStateEnter(RunningCharacterState s)
     {
+        rb.drag = variables.defaultDrag;
+    }
 
-        switch (_param.enumParam)
-        {
-            case CharStates.Running:
-                rb.drag = variables.defaultDrag;
-                break;
-
-            case CharStates.Jumping:
-                rb.drag = variables.airDrag;
-                break;
-
-            default:
-                break;
-        }
+    public void OnStateEnter(JumpingCharacterState s)
+    {
+        rb.drag = variables.airDrag;
     }
 }

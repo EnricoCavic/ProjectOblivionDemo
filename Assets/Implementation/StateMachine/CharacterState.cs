@@ -11,20 +11,7 @@ public class CharacterState : State
         business = _business;
     }
 
-    public override void Enter() => OnStateChange(true);
-    public override void Exit() => OnStateChange(false);
+    public virtual void MainInputStarted() { return; }
+    public virtual void MainInputCanceled() { return; }
 
-
-    private void OnStateChange(bool _isEntering)
-    {
-        //refactor to send state type as parameter
-        Parameters param = new Parameters();
-        param.id = _isEntering ? "OnStateEnter" : "OnStateExit";
-        param.enumParam = enumId;
-
-        if(_isEntering)
-            onEnter?.Invoke(param);
-        else
-            onExit?.Invoke(param);
-    }
 }

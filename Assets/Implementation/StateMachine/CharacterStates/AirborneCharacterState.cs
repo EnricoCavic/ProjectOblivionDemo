@@ -13,7 +13,7 @@ public class AirborneCharacterState : CharacterState
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
-        if(business.rbManager.IsGrounded() && !business.rbManager.IsMovingVertical())
+        if(business.rbManager.IsGrounded())
             return business.GetState(CharStates.Running);
 
         return this;
@@ -21,23 +21,9 @@ public class AirborneCharacterState : CharacterState
 
     public override State FixedTick()
     {
-        business.rbManager.Move();
+        business.rbManager.Move(business.rbManager.variables.acceleration);
         business.rbManager.ApplyGravityMultiplier(this);
         return this;
     }
 
-    public override void ProcessInput(Parameters _input)
-    {
-        switch(_input.id)
-        {
-            case "MainInput":
-                    // Parameters param = new Parameters();
-                    // param.id = "JumpReleased";
-                    // onInputProcessed?.Invoke(param);
-                break;
-
-            default:
-                break;
-        }
-    }
 }

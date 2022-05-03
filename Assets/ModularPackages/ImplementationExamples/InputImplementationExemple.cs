@@ -12,7 +12,7 @@ public class InputImplementationExemple : MonoBehaviour
     
     private void OnEnable() 
     {
-        inputProcessor.buffer.onInputEnqueued += TryInput;
+        
     }
 
     private void TryInput(InputObject _obj)

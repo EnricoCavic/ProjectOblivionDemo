@@ -1,0 +1,55 @@
+{
+    "name": "MainInputAction",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "f72ed18b-d9d5-425f-8ce8-49dad07487a9",
+            "actions": [
+                {
+                    "name": "MainInput",
+                    "type": "Button",
+                    "id": "db2e4803-958b-48ae-bad1-7e034fa22536",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ee965e27-809a-4d11-9c11-387e55116ec5",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "933fcdd7-0145-4de6-8cff-e5f1c66ed8e6",
+                    "path": "*/{PrimaryAction}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd1a46e2-fe32-4444-9510-a8b1c5b29c37",
+                    "path": "*/{SecondaryAction}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MainInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

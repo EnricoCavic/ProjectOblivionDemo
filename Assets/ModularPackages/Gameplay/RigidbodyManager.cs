@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCastManager))]
-public class RigidbodyManager : MonoBehaviour
+public class RigidbodyManager : MonoBehaviour, IRbManager
 {
     public GameplayVariablesObject variables;
     protected Rigidbody rb;
@@ -12,8 +12,12 @@ public class RigidbodyManager : MonoBehaviour
 
     private void Awake() 
     {
+        CacheComponents();
+    }
+    public void CacheComponents()
+    {
         rb = GetComponent<Rigidbody>();
-        castManager = GetComponent<BoxCastManager>();    
+        castManager = GetComponent<BoxCastManager>();
     }
 
     void Start()
@@ -21,43 +25,42 @@ public class RigidbodyManager : MonoBehaviour
         GRAVITY = Physics.gravity;
     }
 
-    public virtual void UpdateGravity(Vector3 _newGravity)
+    public void UpdateGravity(Vector3 _newGravity)
     {
         GRAVITY = _newGravity;
     }
 
-    public virtual void Jump(Parameters _param)
+
+    public void Jump(float _jumpForce)
     {
-        rb.velocity = new Vector3(rb.velocity.x, variables.jumpForce, rb.velocity.z); 
-        //rb.AddForce(transform.up * variables.jumpForce, ForceMode.Impulse);       
+        rb.velocity = new Vector3(rb.velocity.x, _jumpForce);      
     }
 
-    public virtual void Move(Vector3 _moveAxis)
+    public void Move(Vector3 _moveAxis, float _acceleration)
     {
-        rb.AddForce(_moveAxis * variables.acceleration, ForceMode.Force);     
+        rb.AddForce(_moveAxis * _acceleration, ForceMode.Force);     
     }
 
-    public virtual void Move()
+    public void Move(float _acceleration)
     {
-        rb.AddForce(transform.forward * variables.acceleration, ForceMode.Force);     
+        rb.AddForce(transform.forward * _acceleration, ForceMode.Force);     
     }
     
-    public virtual void ApplyGravityMultiplier(float _gravityMultiplier)
+    public void ApplyGravityMultiplier(float _gravityMultiplier)
     {
         Vector3 resultVector = GRAVITY * _gravityMultiplier - GRAVITY;
         rb.AddForce(resultVector, ForceMode.Acceleration);
     }
     
-    public virtual bool IsGrounded() => castManager.CheckCast("GroundCheck");
+    public bool IsGrounded() => castManager.CheckCast("GroundCheck");
 
-    public virtual bool IsFalling() => rb.velocity.y < 0f;
+    public bool IsFalling() => rb.velocity.y < 0f;
 
-    public virtual bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
+    public bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
 
-    public virtual bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
+    public bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
 
-    public virtual void SetDrag() => rb.drag = variables.defaultDrag;
-    public virtual void SetDrag(float _newDrag) => rb.drag = _newDrag;
-
+    public void SetDrag() => rb.drag = variables.defaultDrag;
+    public void SetDrag(float _newDrag) => rb.drag = _newDrag;
 
 }
