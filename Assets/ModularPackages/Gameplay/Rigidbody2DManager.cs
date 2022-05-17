@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCastManager))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Rigidbody2DManager : MonoBehaviour, IRbManager
 {
     public GameplayVariablesObject variables;
+    public LayerMask solidLayerMask;
     protected Rigidbody2D rb;
     protected CapsuleCollider2D capsuleCollider2D;
     protected Vector3 GRAVITY;
 
-    private void Awake() 
-    {
-        CacheComponents();
-    }
+
     public void CacheComponents()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,7 +52,10 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
     
     public bool IsGrounded()
     {
-        return true;
+        float extraHeight = .5f;
+        Vector3 boxSize = capsuleCollider2D.bounds.size/1.5f;
+        RaycastHit2D hit = Physics2D.BoxCast(capsuleCollider2D.bounds.center, boxSize, 0f, -transform.up, extraHeight, solidLayerMask);
+        return hit.collider != null;
     }
 
     public bool IsFalling() => rb.velocity.y < 0f;

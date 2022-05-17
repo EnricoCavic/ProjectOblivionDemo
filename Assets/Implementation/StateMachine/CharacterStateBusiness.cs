@@ -10,7 +10,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     public InputProcessor inputProcessor;
     public ProjectOblivionRBM rbManager;
 
-    private void Awake() 
+    private void Start() 
     {
         InitializeStates();    
     }

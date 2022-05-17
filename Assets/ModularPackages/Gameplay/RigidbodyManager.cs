@@ -10,10 +10,6 @@ public class RigidbodyManager : MonoBehaviour, IRbManager
     protected BoxCastManager castManager;
     protected Vector3 GRAVITY;
 
-    private void Awake() 
-    {
-        CacheComponents();
-    }
     public void CacheComponents()
     {
         rb = GetComponent<Rigidbody>();
