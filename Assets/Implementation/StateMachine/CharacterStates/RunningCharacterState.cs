@@ -12,7 +12,7 @@ public class RunningCharacterState : CharacterState
 
     public override void Enter()
     {
-        if(business.inputProcessor.mainInputBuffer.x > 0f)
+        if(business.inputProcessor.IsMainInputBuffered(true))
         {
             MainInputStarted();
             return;
@@ -39,7 +39,7 @@ public class RunningCharacterState : CharacterState
 
     public override void MainInputStarted()
     {
-        business.inputProcessor.mainInputBuffer.x = 0f;
+        business.inputProcessor.ResetBuffer(true);
         business.rbManager.Jump(business.rbManager.variables.jumpForce);
         business.stateMachine.NewState(business.GetState(CharStates.Jumping));
     }

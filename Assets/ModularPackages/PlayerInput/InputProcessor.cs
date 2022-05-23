@@ -9,10 +9,17 @@ public class InputProcessor : MonoBehaviour
 
     public MainInputAction inputAsset;
     
-    [NonSerialized] public Vector2 mainInputBuffer;
+    private Vector2 mainInputBuffer;
     [NonSerialized] public bool mainInputHeld = false;
 
     public float bufferTime = 0.3f;
+
+    public bool IsMainInputBuffered(bool checkForPressed)
+    {
+        float value = checkForPressed ? mainInputBuffer.x : mainInputBuffer.y;
+        return value > 0f;
+    }
+
 
     private void Awake() 
     {
@@ -25,11 +32,6 @@ public class InputProcessor : MonoBehaviour
         inputAsset.Enable();
     }
 
-    private void Start() 
-    {
-        
-    }
-
     public void MainInputStarted()
     {
         mainInputBuffer.x = bufferTime;
@@ -40,6 +42,15 @@ public class InputProcessor : MonoBehaviour
     {
         mainInputBuffer.y = bufferTime;
         mainInputHeld = false;
+    }
+
+    public void ResetBuffer(bool checkForPressed)
+    {
+        if(checkForPressed)
+            mainInputBuffer.x = 0f;
+        else
+            mainInputBuffer.y = 0f;
+        
     }
 
     void Update() 
