@@ -13,6 +13,7 @@ public class AirborneCharacterState : CharacterState
     public override State Tick()
     {
         business.rbManager.CheckForTurn();
+        
         if(business.rbManager.IsGrounded())
             return business.GetState(CharStates.Running);
 

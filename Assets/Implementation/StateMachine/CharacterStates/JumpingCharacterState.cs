@@ -17,18 +17,20 @@ public class JumpingCharacterState : CharacterState
     {
         currentJumpTime = 0f;
         canEndJump = false;
+
         business.rbManager.OnStateEnter(this);
     }
 
     public override State Tick()
     {
         currentJumpTime += Time.deltaTime;
-        canEndJump = currentJumpTime >= business.rbManager.variables.minJumpTime;
+        canEndJump = currentJumpTime > business.rbManager.variables.minJumpTime;
         if(canEndJump && !business.inputProcessor.mainInputHeld)
             return business.GetState(CharStates.Airborne); 
         
 
         business.rbManager.CheckForTurn();
+        
         if(business.rbManager.IsFalling())
         {
             if(business.rbManager.IsGrounded())
@@ -38,7 +40,7 @@ public class JumpingCharacterState : CharacterState
         }
             
         if(!business.rbManager.IsMovingVertical() && business.rbManager.IsGrounded())
-                return business.GetState(CharStates.Running);
+            return business.GetState(CharStates.Running);
 
         return this;
     }

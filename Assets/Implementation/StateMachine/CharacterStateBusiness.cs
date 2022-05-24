@@ -52,13 +52,11 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
 
     private void FeedMainInputStarted(InputAction.CallbackContext _context)
     {
-        inputProcessor.MainInputStarted();
         stateMachine.currentState.MainInputStarted();
     }
 
     private void FeedMainInputCanceled(InputAction.CallbackContext _context)
     {
-        inputProcessor.MainInputCanceled();
         stateMachine.currentState.MainInputCanceled();
     }
 

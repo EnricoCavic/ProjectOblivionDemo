@@ -30,15 +30,17 @@ public class InputProcessor : MonoBehaviour
     void OnEnable()
     {
         inputAsset.Enable();
+        inputAsset.Gameplay.MainInput.started += MainInputStarted;
+        inputAsset.Gameplay.MainInput.canceled += MainInputCanceled;
     }
 
-    public void MainInputStarted()
+    public void MainInputStarted(InputAction.CallbackContext _context)
     {
         mainInputBuffer.x = bufferTime;
         mainInputHeld = true;
     }
 
-    public void MainInputCanceled()
+    public void MainInputCanceled(InputAction.CallbackContext _context)
     {
         mainInputBuffer.y = bufferTime;
         mainInputHeld = false;
@@ -63,6 +65,8 @@ public class InputProcessor : MonoBehaviour
     void OnDisable()
     {
         inputAsset.Disable();
+        inputAsset.Gameplay.MainInput.started -= MainInputStarted;
+        inputAsset.Gameplay.MainInput.canceled -= MainInputCanceled;
     }
 
 }

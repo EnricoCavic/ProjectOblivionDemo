@@ -10,6 +10,7 @@ public class GameplayVariablesObject : ScriptableObject
     public float maxMovementSpeed = 40f;
     public float acceleration = 40f;
     public float defaultDrag = 6f;
+    public float runningGravityMultiplier = 2;
 
 
     [Header("Jumping")]
