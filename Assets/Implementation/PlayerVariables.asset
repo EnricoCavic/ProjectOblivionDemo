@@ -15,7 +15,7 @@ MonoBehaviour:
   maxMovementSpeed: 40
   acceleration: 50
   defaultDrag: 5
-  runningGravityMultiplier: 2
+  runningGravityMultiplier: 4
   jumpForce: 16
   coyoteTime: 0.13
   jumpingGravityMultiplier: 0.5
