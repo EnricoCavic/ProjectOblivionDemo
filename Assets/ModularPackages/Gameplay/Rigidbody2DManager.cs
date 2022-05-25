@@ -9,12 +9,14 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
     public LayerMask solidLayerMask;
     protected Rigidbody2D rb;
     protected CapsuleCollider2D capsuleCollider2D;
+    protected BoxCast2DManager cast2DManager;
     protected Vector3 GRAVITY;
 
 
     public void CacheComponents()
     {
         rb = GetComponent<Rigidbody2D>();
+        cast2DManager = GetComponent<BoxCast2DManager>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
 
@@ -52,10 +54,7 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
     
     public bool IsGrounded()
     {
-        float extraHeight = .5f;
-        Vector3 boxSize = capsuleCollider2D.bounds.size/1.5f;
-        RaycastHit2D hit = Physics2D.BoxCast(capsuleCollider2D.bounds.center, boxSize, 0f, -transform.up, extraHeight, solidLayerMask);
-        return hit.collider != null;
+        return cast2DManager.CheckCast("GroundCheck");;
     }
 
     public bool IsFalling() => rb.velocity.y < 0f;
