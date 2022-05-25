@@ -33,8 +33,14 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
 
     public void Jump(float _jumpForce)
     {
-        rb.velocity = new Vector3(rb.velocity.x, _jumpForce);      
+        rb.velocity = new Vector2(rb.velocity.x, _jumpForce);      
     }
+
+    public void HorizontalVelocity(float _impulseForce, float direction)
+    {
+        rb.velocity = new Vector2(_impulseForce * direction, rb.velocity.y);
+    }
+    
 
     public void Move(Vector3 _moveAxis, float _acceleration)
     {
