@@ -12,6 +12,10 @@ public class AirborneCharacterState : CharacterState
 
     public override State Tick()
     {
+        // verificar se está encostado em uma parede ou estava faz pouco tempo
+        // verificar se recebeu input ou tem um no buffer
+            // realizar pulo e impulso horizontal oposto a parede
+
         business.rbManager.CheckForTurn();
         
         if(business.rbManager.IsGrounded())
