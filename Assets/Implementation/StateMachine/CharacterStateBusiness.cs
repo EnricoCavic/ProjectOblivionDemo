@@ -60,4 +60,19 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         stateMachine.currentState.MainInputCanceled();
     }
 
+    public void JumpAction()
+    {
+        inputProcessor.ResetBuffer(true);
+        rbManager.Jump(rbManager.variables.jumpForce);
+        stateMachine.NewState(GetState(CharStates.Jumping));
+    }
+
+    public void WallJumpAction()
+    {
+        inputProcessor.ResetBuffer(true);
+        rbManager.Jump(rbManager.variables.wallJumpVerticalForce);
+        rbManager.HorizontalVelocity(rbManager.variables.wallJumpHorizontalForce, rbManager.RunningDirection());
+        //stateMachine.NewState(GetState(CharStates.Jumping));
+    }
+
 }

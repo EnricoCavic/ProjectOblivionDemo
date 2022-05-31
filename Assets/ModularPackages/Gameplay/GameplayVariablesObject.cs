@@ -19,6 +19,11 @@ public class GameplayVariablesObject : ScriptableObject
     public float jumpingGravityMultiplier = 0.5f;
     public float minJumpTime = 0.05f;
 
+    [Header("WallJump")]
+    public float wallJumpHorizontalForce = 10f;
+    public float wallJumpVerticalForce = 3f;
+    public float wallJumpCoyoteTime = 0.2f;
+
 
     [Header("Airborne")]
     public float airDrag = 4f;

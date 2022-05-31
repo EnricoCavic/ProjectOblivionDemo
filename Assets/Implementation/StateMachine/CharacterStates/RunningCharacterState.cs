@@ -17,7 +17,7 @@ public class RunningCharacterState : CharacterState
         currentCoyoteTime = 0f;
         if(business.inputProcessor.IsMainInputBuffered(true))
         {
-            MainInputStarted();
+            business.JumpAction();
             return;
         }
 
@@ -55,8 +55,6 @@ public class RunningCharacterState : CharacterState
 
     public override void MainInputStarted()
     {
-        business.inputProcessor.ResetBuffer(true);
-        business.rbManager.Jump(business.rbManager.variables.jumpForce);
-        business.stateMachine.NewState(business.GetState(CharStates.Jumping));
+        business.JumpAction();
     }
 }

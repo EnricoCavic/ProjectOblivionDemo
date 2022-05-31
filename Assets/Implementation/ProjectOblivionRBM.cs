@@ -16,6 +16,8 @@ public class ProjectOblivionRBM : Rigidbody2DManager
         return transform.rotation.y == 0f ? cast2DManager.CheckCast("RightWallCheck") : cast2DManager.CheckCast("LeftWallCheck"); 
     }
 
+    public float RunningDirection() => transform.rotation.y == 0f ? 1f : -1f;
+
     public void TurnArround() => transform.rotation = Quaternion.LookRotation(transform.forward * -1f);
 
     public void CheckForTurn()
