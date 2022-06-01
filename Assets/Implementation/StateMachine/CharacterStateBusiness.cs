@@ -67,12 +67,13 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
         stateMachine.NewState(GetState(CharStates.Jumping));
     }
 
-    public void WallJumpAction()
+    public void WallJumpAction(bool _invertedHorizontalForce)
     {
         inputProcessor.ResetBuffer(true);
         rbManager.Jump(rbManager.variables.wallJumpVerticalForce);
-        rbManager.HorizontalVelocity(rbManager.variables.wallJumpHorizontalForce, rbManager.RunningDirection());
-        //stateMachine.NewState(GetState(CharStates.Jumping));
+        float dir = _invertedHorizontalForce ? rbManager.RunningDirection() : rbManager.RunningDirection() * -1f;
+        rbManager.HorizontalVelocity(rbManager.variables.wallJumpHorizontalForce, dir);
+        stateMachine.NewState(GetState(CharStates.Jumping));
     }
 
 }

@@ -26,12 +26,12 @@ public class AirborneCharacterState : CharacterState
         {
             if(business.inputProcessor.IsMainInputBuffered(true))
             {
-                business.JumpAction();
+                business.WallJumpAction(false);
                 return business.GetState(CharStates.Jumping);
             }       
             canWallJump = true;     
         }
-        else if (canWallJump)
+        else if(canWallJump)
         {
             currentWallJumpCoyoteTime += Time.deltaTime;
             canWallJump = currentWallJumpCoyoteTime < business.rbManager.variables.wallJumpCoyoteTime;
@@ -55,7 +55,7 @@ public class AirborneCharacterState : CharacterState
     public override void MainInputStarted()
     {
         if(canWallJump)
-            business.JumpAction();
+            business.WallJumpAction(true);
     }
 
 
