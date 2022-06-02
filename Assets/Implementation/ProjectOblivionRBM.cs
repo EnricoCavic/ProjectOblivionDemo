@@ -18,7 +18,11 @@ public class ProjectOblivionRBM : Rigidbody2DManager
 
     public float RunningDirection() => transform.rotation.y == 0f ? 1f : -1f;
 
-    public void TurnArround() => transform.rotation = Quaternion.LookRotation(transform.forward * -1f);
+    public void TurnArround()
+    {
+        transform.rotation = Quaternion.LookRotation(transform.forward * -1f);
+        Debug.Log("Turn");
+    }
 
     public void CheckForTurn()
     {
