@@ -20,8 +20,8 @@ MonoBehaviour:
   coyoteTime: 0.13
   jumpingGravityMultiplier: 0.5
   minJumpTime: 0.05
-  wallJumpHorizontalForce: 14
-  wallJumpVerticalForce: 16
+  wallJumpHorizontalForce: 12
+  wallJumpVerticalForce: 23
   wallJumpCoyoteTime: 0.15
   airDrag: 4
-  airbourneGravityMultiplier: 10
+  airbourneGravityMultiplier: 13

@@ -71,8 +71,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     {
         inputProcessor.ResetBuffer(true);
         rbManager.Jump(rbManager.variables.wallJumpVerticalForce);
-        float dir = _invertedHorizontalForce ? rbManager.RunningDirection() : rbManager.RunningDirection() * -1f;
-        rbManager.HorizontalVelocity(rbManager.variables.wallJumpHorizontalForce, dir);
+        rbManager.HorizontalVelocity(rbManager.variables.wallJumpHorizontalForce, rbManager.RunningDirection());
         stateMachine.NewState(GetState(CharStates.Jumping));
     }
 

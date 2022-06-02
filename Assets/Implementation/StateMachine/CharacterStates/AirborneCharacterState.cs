@@ -7,6 +7,7 @@ public class AirborneCharacterState : CharacterState
 
     float currentWallJumpCoyoteTime;
     bool canWallJump;
+    bool canCoyote;
 
     public AirborneCharacterState(CharacterStateBusiness _business)
     {
@@ -24,6 +25,7 @@ public class AirborneCharacterState : CharacterState
     {
         if(business.rbManager.HasWallOnFront())
         {
+            business.rbManager.TurnArround();
             if(business.inputProcessor.IsMainInputBuffered(true))
             {
                 business.WallJumpAction(false);
@@ -37,7 +39,6 @@ public class AirborneCharacterState : CharacterState
             canWallJump = currentWallJumpCoyoteTime < business.rbManager.variables.wallJumpCoyoteTime;
         }
 
-        business.rbManager.CheckForTurn();
         
         if(business.rbManager.IsGrounded())
             return business.GetState(CharStates.Running);
@@ -55,7 +56,10 @@ public class AirborneCharacterState : CharacterState
     public override void MainInputStarted()
     {
         if(canWallJump)
+        {
             business.WallJumpAction(true);
+        }
+
     }
 
 
