@@ -54,6 +54,8 @@ public class RunningCharacterState : CharacterState
         if(currentCoyoteTime > 0f)
             moveDirection += groundMagnet;
 
+        
+
         business.rbManager.Move(moveDirection ,business.rbManager.variables.acceleration);
         business.rbManager.ApplyGravityMultiplier(this);
         return this;

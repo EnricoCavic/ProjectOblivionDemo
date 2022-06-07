@@ -33,9 +33,9 @@ public class ProjectOblivionRBM : Rigidbody2DManager
     public Vector3 GroundDirection()
     {
         if(!IsGrounded())
-            return Vector2.zero;
+            return Vector3.zero;
 
-        return cast2DManager.GetCast("GroundCheck").normalPerpendicular * RunningDirection();
+        return cast2DManager.GetCast("SlopeCheck").normalPerpendicular * RunningDirection();
     }
 
     public void ApplyGravityMultiplier(RunningCharacterState s) => ApplyGravityMultiplier(variables.runningGravityMultiplier);
