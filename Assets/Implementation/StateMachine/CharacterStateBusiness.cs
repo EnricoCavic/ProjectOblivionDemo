@@ -24,7 +24,7 @@ public class CharacterStateBusiness : StateMachineBusiness<CharacterState>
     private void Update() 
     {
         stateMachine.TickCurrentState();    
-        //Debug.Log(stateMachine.currentState.enumId);
+        Debug.Log(stateMachine.currentState.enumId);
     }
 
     private void FixedUpdate() 

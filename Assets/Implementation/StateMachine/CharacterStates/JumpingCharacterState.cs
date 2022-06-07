@@ -32,13 +32,8 @@ public class JumpingCharacterState : CharacterState
         business.rbManager.CheckForTurn();
         
         if(business.rbManager.IsFalling())
-        {
-            if(business.rbManager.IsGrounded())
-                return business.GetState(CharStates.Running);
-            else
-                return business.GetState(CharStates.Airborne); 
-        }
-            
+            return business.GetState(CharStates.Airborne); 
+             
         if(!business.rbManager.IsMovingVertical() && business.rbManager.IsGrounded())
             return business.GetState(CharStates.Running);
 

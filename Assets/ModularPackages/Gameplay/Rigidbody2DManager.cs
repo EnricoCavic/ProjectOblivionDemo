@@ -60,14 +60,14 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
     
     public bool IsGrounded()
     {
-        return cast2DManager.CheckCast("GroundCheck");;
+        return cast2DManager.CheckCast("GroundCheck");
     }
 
     public bool IsFalling() => rb.velocity.y < 0f;
 
     public bool IsMovingHorizontal() => Mathf.Abs(rb.velocity.x) > 0.1f;
 
-    public bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > float.Epsilon;
+    public bool IsMovingVertical() => Mathf.Abs(rb.velocity.y) > 0.05f;
 
     public void SetDrag() => rb.drag = variables.defaultDrag;
     public void SetDrag(float _newDrag) => rb.drag = _newDrag;

@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Solids
-  - 
+  - JumpThrough
   - 
   - 
   - 
@@ -45,4 +45,7 @@ TagManager:
     locked: 0
   - name: Solids
     uniqueID: 990001155
+    locked: 0
+  - name: JumpThrough
+    uniqueID: 869997709
     locked: 0
