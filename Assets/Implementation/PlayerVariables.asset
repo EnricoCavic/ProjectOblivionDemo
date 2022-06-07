@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerVariables
   m_EditorClassIdentifier: 
   maxMovementSpeed: 40
-  acceleration: 50
+  acceleration: 60
   defaultDrag: 5
-  runningGravityMultiplier: 4
+  runningGravityMultiplier: 5
+  runningGroundMagnet: 2
   jumpForce: 16
   coyoteTime: 0.13
   jumpingGravityMultiplier: 0.5
@@ -24,4 +25,4 @@ MonoBehaviour:
   wallJumpVerticalForce: 23
   wallJumpCoyoteTime: 0.15
   airDrag: 4
-  airbourneGravityMultiplier: 13
+  airbourneGravityMultiplier: 15

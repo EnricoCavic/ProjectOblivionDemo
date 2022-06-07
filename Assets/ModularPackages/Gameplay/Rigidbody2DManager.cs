@@ -6,7 +6,6 @@ using UnityEngine;
 public class Rigidbody2DManager : MonoBehaviour, IRbManager
 {
     public GameplayVariablesObject variables;
-    public LayerMask solidLayerMask;
     protected Rigidbody2D rb;
     protected CapsuleCollider2D capsuleCollider2D;
     protected BoxCast2DManager cast2DManager;
@@ -58,10 +57,7 @@ public class Rigidbody2DManager : MonoBehaviour, IRbManager
         rb.AddForce(resultVector, ForceMode2D.Force);
     }
     
-    public bool IsGrounded()
-    {
-        return cast2DManager.CheckCast("GroundCheck");
-    }
+    public bool IsGrounded() => cast2DManager.CheckCast("GroundCheck");
 
     public bool IsFalling() => rb.velocity.y < 0f;
 

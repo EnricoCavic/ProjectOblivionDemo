@@ -29,6 +29,15 @@ public class ProjectOblivionRBM : Rigidbody2DManager
             TurnArround();
     }
 
+    
+    public Vector3 GroundDirection()
+    {
+        if(!IsGrounded())
+            return Vector2.zero;
+
+        return cast2DManager.GetCast("GroundCheck").normalPerpendicular * RunningDirection();
+    }
+
     public void ApplyGravityMultiplier(RunningCharacterState s) => ApplyGravityMultiplier(variables.runningGravityMultiplier);
     public void ApplyGravityMultiplier(JumpingCharacterState s) => ApplyGravityMultiplier(variables.jumpingGravityMultiplier);
     public void ApplyGravityMultiplier(AirborneCharacterState s) => ApplyGravityMultiplier(variables.airbourneGravityMultiplier);

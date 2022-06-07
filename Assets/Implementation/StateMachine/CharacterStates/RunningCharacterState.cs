@@ -6,6 +6,8 @@ public class RunningCharacterState : CharacterState
 {
     float currentCoyoteTime;
     bool canEndRun;
+    Vector3 groundMagnet => Vector3.down * business.rbManager.variables.runningGroundMagnet;
+    Vector3 moveDirection = new Vector3();
     public RunningCharacterState(CharacterStateBusiness _business)
     {
         enumId = CharStates.Running;
@@ -46,8 +48,13 @@ public class RunningCharacterState : CharacterState
     }
 
     public override State FixedTick()
-    {
-        business.rbManager.Move(business.rbManager.variables.acceleration);
+    { 
+        Vector3 gDir = business.rbManager.GroundDirection();
+        moveDirection = gDir != Vector3.zero ? gDir : business.rbManager.transform.right;
+        if(currentCoyoteTime > 0f)
+            moveDirection += groundMagnet;
+
+        business.rbManager.Move(moveDirection ,business.rbManager.variables.acceleration);
         business.rbManager.ApplyGravityMultiplier(this);
         return this;
     }

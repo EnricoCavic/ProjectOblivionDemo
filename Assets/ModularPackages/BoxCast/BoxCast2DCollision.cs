@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class BoxCast2DCollision
 {
     public string id;
@@ -14,6 +15,9 @@ public class BoxCast2DCollision
     public LayerMask hitMask;
     public bool toggleDraw;
 
+    [NonSerialized] public Vector2 hitNormal;
+    [NonSerialized] public Vector2 normalPerpendicular;
+
     Vector2 boxOrigin => origin.bounds.center;
     Vector2 boxSize => Vector3.Scale(origin.bounds.size, sizeScaler);
     Vector2 boxExtends => boxSize/2;
@@ -23,7 +27,14 @@ public class BoxCast2DCollision
 
     public RaycastHit2D CheckOverlap()
     {
-        return Physics2D.BoxCast(boxOrigin, boxSize, angle, direction, distance, hitMask);
+        RaycastHit2D hit = Physics2D.BoxCast(boxOrigin, boxSize, angle, direction, distance, hitMask);
+        if(hit)
+        {
+            hitNormal = hit.normal;
+            normalPerpendicular = Vector3.Cross(Vector3.back, hitNormal);
+        }
+
+        return hit;
     }
 
     public void DrawCollision()

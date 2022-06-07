@@ -11,6 +11,7 @@ public class GameplayVariablesObject : ScriptableObject
     public float acceleration = 40f;
     public float defaultDrag = 6f;
     public float runningGravityMultiplier = 2;
+    public float runningGroundMagnet = 5;
 
 
     [Header("Jumping")]
