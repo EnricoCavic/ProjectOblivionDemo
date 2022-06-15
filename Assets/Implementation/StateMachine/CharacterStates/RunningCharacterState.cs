@@ -53,7 +53,7 @@ public class RunningCharacterState : CharacterState
         moveDirection = gDir != Vector3.zero ? gDir : business.rbManager.transform.right;
         if(currentCoyoteTime > 0f)
             moveDirection += groundMagnet;
-
+        Debug.Log(gDir + " / " + moveDirection);
         
 
         business.rbManager.Move(moveDirection ,business.rbManager.variables.acceleration);

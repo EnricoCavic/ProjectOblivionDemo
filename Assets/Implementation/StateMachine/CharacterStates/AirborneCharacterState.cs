@@ -40,7 +40,7 @@ public class AirborneCharacterState : CharacterState
         }
 
         
-        if(business.rbManager.IsGrounded() && !business.rbManager.IsMovingVertical())
+        if(business.rbManager.IsGrounded())
             return business.GetState(CharStates.Running);
 
         return this;

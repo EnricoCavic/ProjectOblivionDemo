@@ -15,6 +15,7 @@ public class BoxCast2DCollision
     public LayerMask hitMask;
     public bool toggleDraw;
 
+    [NonSerialized] public Vector2 hitOrigin;
     [NonSerialized] public Vector2 hitNormal;
     [NonSerialized] public Vector2 normalPerpendicular;
 
@@ -27,11 +28,13 @@ public class BoxCast2DCollision
 
     public RaycastHit2D CheckOverlap()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxOrigin, boxSize, angle, direction, distance, hitMask);
+        RaycastHit2D hit = Physics2D.BoxCast(finalOrigin, boxSize, angle, direction, 0f, hitMask);
         if(hit)
         {
-            hitNormal = hit.normal;
-            normalPerpendicular = Vector3.Cross(Vector3.back, hitNormal);
+            hitOrigin = hit.point;
+            hitNormal.Set(hit.normal.x, Mathf.Abs(hit.normal.y));
+            
+            normalPerpendicular = Vector3.Cross(Vector3.back, hitNormal);            
         }
 
         return hit;
@@ -46,8 +49,11 @@ public class BoxCast2DCollision
 
         Gizmos.DrawWireCube(finalOrigin, boxSize);
 
-        Gizmos.DrawLine(boxOrigin + Vector2.Scale(boxExtends, -direction),
-                        finalOrigin + Vector2.Scale(boxExtends, direction));
+        //Gizmos.color = Color.magenta;
+        //Gizmos.DrawLine(hitOrigin, hitNormal);
+        // Gizmos.DrawLine(hitOrigin, normalPerpendicular);
+        //Debug.DrawRay(boxOrigin + origin.bounds.extents * direction, hitNormal, Color.magenta);
+        Debug.DrawRay(boxOrigin + origin.bounds.extents * direction, normalPerpendicular, Color.cyan);
 
     }
 }

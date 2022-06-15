@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3b0bb1b0fb33f488dfc01a59e9071f, type: 3}
+  m_Name: LevelConnectorAutoTIle
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 0}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 1
+  m_TilingRules:
+  - m_Id: 0
+    m_Sprites:
+    - {fileID: 7985293472481854254, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -3603058779521117679, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -6528736757298339545, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -6296975157123026295, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -1650382675909539810, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -1073862770964167745, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: 2819104945361711937, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: -5800939748539422431, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: 3250559255588514560, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    - {fileID: 6763719117274572157, guid: 186ce731b3eaf47459110dfa1b610b36, type: 3}
+    m_GameObject: {fileID: 0}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.88
+    m_Output: 1
+    m_ColliderType: 1
+    m_RandomTransform: 4
+    m_Neighbors: 
+    m_NeighborPositions:
+    - {x: -1, y: 1, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 1, y: 0, z: 0}
+    - {x: -1, y: -1, z: 0}
+    - {x: 0, y: -1, z: 0}
+    - {x: 1, y: -1, z: 0}
+    m_RuleTransform: 0
+  type: 
