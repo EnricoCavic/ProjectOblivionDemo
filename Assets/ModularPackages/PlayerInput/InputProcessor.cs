@@ -30,6 +30,7 @@ public class InputProcessor : MonoBehaviour
     void OnEnable()
     {
         inputAsset.Enable();
+        Debug.Log(inputAsset);
         inputAsset.Gameplay.MainInput.started += MainInputStarted;
         inputAsset.Gameplay.MainInput.canceled += MainInputCanceled;
     }

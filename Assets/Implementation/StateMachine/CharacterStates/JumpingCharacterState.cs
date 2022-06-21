@@ -7,10 +7,9 @@ public class JumpingCharacterState : CharacterState
 
     float currentJumpTime;
     bool canEndJump;
-    public JumpingCharacterState(CharacterStateBusiness _business)
+    private void Awake()
     {
-        enumId = CharStates.Jumping; 
-        Init(_business);
+        Init();
     }
 
     public override void Enter()
@@ -26,16 +25,16 @@ public class JumpingCharacterState : CharacterState
         currentJumpTime += Time.deltaTime;
         canEndJump = currentJumpTime > business.rbManager.variables.minJumpTime;
         if(canEndJump && !business.inputProcessor.mainInputHeld)
-            return business.GetState(CharStates.Airborne); 
+            return business.GetState(typeof(AirborneCharacterState)); 
         
 
         business.rbManager.CheckForTurn();
         
         if(business.rbManager.IsFalling())
-            return business.GetState(CharStates.Airborne); 
+            return business.GetState(typeof(AirborneCharacterState)); 
              
         if(!business.rbManager.IsMovingVertical() && business.rbManager.IsGrounded())
-            return business.GetState(CharStates.Running);
+            return business.GetState(typeof(RunningCharacterState));
 
         return this;
     }
@@ -51,7 +50,7 @@ public class JumpingCharacterState : CharacterState
     public override void MainInputCanceled()
     {
         if(canEndJump)
-            business.stateMachine.NewState(business.GetState(CharStates.Airborne));
+            business.stateMachine.NewState(business.GetState(typeof(AirborneCharacterState)));
     }
 
 }

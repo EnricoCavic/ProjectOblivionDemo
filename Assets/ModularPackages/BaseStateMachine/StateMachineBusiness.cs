@@ -3,39 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class StateMachineBusiness<T> : MonoBehaviour
-    where T : State
+public class StateMachineBusiness<S> : MonoBehaviour 
+    where S : State
 {
-    public StateMachine<T> stateMachine { get; protected set; }
+    public StateMachine<S> stateMachine { get; protected set; }
 
-    [NonSerialized] public Dictionary<Enum, T> stateDictionary;
+    public S initialState;
+    public List<S> states;
 
-    public virtual void InitializeStates() 
+    private void Start() => InitializeStates();    
+    private void OnValidate() => states = new List<S>(GetComponents<S>());
+    private void Update() => stateMachine?.TickCurrentState();
+    private void FixedUpdate() => stateMachine?.TickCurrentStateFixed();  
+
+    private void InitializeStates() 
     {
-        stateDictionary = new Dictionary<Enum, T>();
-    }
+        states = new List<S>(GetComponents<S>());
 
-    protected void TickStateMachine() 
-    {
-        stateMachine?.TickCurrentState();
-    }
+        S initial = initialState != null ? initialState : states[0];
+        stateMachine = new StateMachine<S>(initial);
+    } 
 
-    protected void FixedTickStateMachine() 
+    public S GetState(Type _stateType)
     {
-        stateMachine?.TickCurrentStateFixed();   
-    }
-
-    public T AddState(Enum _stateTag, T _newState)
-    {
-        if(stateDictionary.ContainsKey(_stateTag) || stateDictionary == null)
+        if(states.Count <= 0) 
             return null;
 
-        stateDictionary.Add(_stateTag, _newState);
-        return stateDictionary[_stateTag];
+        for(int i = 0; i < states.Count; i++)
+            if(states[i].GetType() == _stateType)
+                return states[i];
+
+        return null;
     }
-
-    public T GetState(Enum _stateTag) => stateDictionary[_stateTag];
-
-
-
 }

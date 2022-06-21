@@ -13,6 +13,6 @@ public class ShowState : MonoBehaviour
     }
     void Update()
     {
-        text.text = business.stateMachine.currentState.enumId.ToString();
+        //text.text = business.stateMachine.currentState.enumId.ToString();
     }
 }

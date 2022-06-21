@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class State
+public abstract class State : MonoBehaviour
 {
-    public Action<Parameters> onInputProcessed;
     public Action<Parameters> onEnter;
     public Action<Parameters> onExit;
+    
     public virtual void Enter() { return; }
     
     public virtual State Tick() { return this; }
@@ -16,7 +16,6 @@ public abstract class State
 
     public virtual void Exit() { return; }
 
-    public virtual void ProcessInput(Parameters _input) { return; }
 }
 
 

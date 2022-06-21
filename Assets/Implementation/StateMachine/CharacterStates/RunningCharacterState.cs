@@ -8,10 +8,9 @@ public class RunningCharacterState : CharacterState
     bool canEndRun;
     Vector3 groundMagnet => Vector3.down * business.rbManager.variables.runningGroundMagnet;
     Vector3 moveDirection = new Vector3();
-    public RunningCharacterState(CharacterStateBusiness _business)
+    private void Awake()
     {
-        enumId = CharStates.Running;
-        Init(_business);
+        Init();
     }
 
     public override void Enter()
@@ -40,7 +39,7 @@ public class RunningCharacterState : CharacterState
         canEndRun = currentCoyoteTime > business.rbManager.variables.coyoteTime;
 
         if(canEndRun)
-            return business.GetState(CharStates.Airborne);
+            return business.GetState(typeof(AirborneCharacterState));
 
         return this;
 

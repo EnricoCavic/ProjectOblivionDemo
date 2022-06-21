@@ -9,10 +9,9 @@ public class AirborneCharacterState : CharacterState
     bool canWallJump;
     bool canCoyote;
 
-    public AirborneCharacterState(CharacterStateBusiness _business)
+    private void Awake()
     {
-        enumId = CharStates.Airborne; 
-        Init(_business);
+        Init();
     }
 
     public override void Enter()
@@ -29,7 +28,7 @@ public class AirborneCharacterState : CharacterState
             if(business.inputProcessor.IsMainInputBuffered(true))
             {
                 business.WallJumpAction(false);
-                return business.GetState(CharStates.Jumping);
+                return business.GetState(typeof(JumpingCharacterState));
             }       
             canWallJump = true;     
         }
@@ -41,7 +40,7 @@ public class AirborneCharacterState : CharacterState
 
         
         if(business.rbManager.IsGrounded())
-            return business.GetState(CharStates.Running);
+            return business.GetState(typeof(RunningCharacterState));
 
         return this;
     }
